@@ -1,0 +1,18 @@
+@use 'type';
+
+//fonts
+$body-font: "Outfit", sans-serif;
+
+// spacing
+$padding: calc(5rem /2);
+// styling
+$border-radius: 5px;
+/// fonts
+$twelve: 0.86rem;
+$ten: 0.71rem;
+$eight: 0.58rem;
+// media queries
+$breakpoint-mp: 576px;
+$breakpoint-mt: 992px;
+//mobile
+$pm: 50px;

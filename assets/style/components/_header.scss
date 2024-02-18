@@ -1,0 +1,19 @@
+@use '../abstracts' as a;
+
+header {
+
+	.container {
+		padding-top: .7rem;
+		padding-bottom: .7rem;
+
+		.button {
+			button {
+				@include a.header-button;
+			}
+		}
+
+		.hamburger {
+			cursor: pointer;
+		}
+	}
+}

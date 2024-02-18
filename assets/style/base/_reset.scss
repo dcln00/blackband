@@ -1,0 +1,53 @@
+@use '../abstracts' as a;
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	scroll-behavior: smooth;
+	// outline: auto;
+}
+
+::selection {
+	background-color: a.color(black);
+	color: a.color(white);
+}
+
+:root {
+	transition: all 0.5s;
+	font-size: 14px;
+}
+
+html {
+	overflow-x: hidden;
+}
+
+body {
+	font-family: a.$body-font;
+	// background-color: a.color(background);
+	// overflow-x: hidden;
+}
+
+a {
+	color: a.color(black);
+	text-decoration: none;
+	opacity: 1;
+	transition: .3s;
+
+	&:hover {
+		opacity: .75;
+	}
+}
+
+.title {
+	@include a.title;
+}
+
+.description,
+.text {
+	@include a.description;
+}
+
+input {
+	outline: none;
+}

@@ -1,0 +1,16 @@
+$colors: (
+	theme: (
+		'white': #ffffff,
+		'black': #000000,
+	),
+);
+
+:root {
+	@each $theme, $color in map-get($colors, theme) {
+		--#{$theme}: #{$color};
+	}
+}
+
+@function color($color) {
+	@return var(--#{$color});
+}

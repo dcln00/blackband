@@ -1,0 +1,18 @@
+@use '../abstracts' as a;
+
+#error {
+	padding-bottom: 5rem;
+
+	.description {
+		margin: 0 auto;
+		width: 40%;
+		text-transform: lowercase;
+	}
+
+	button {
+		@include a.button;
+		border: 1px solid black;
+		border-radius: a.$border-radius;
+		padding:.8rem 2rem;
+	}
+}

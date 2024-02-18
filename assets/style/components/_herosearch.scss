@@ -1,0 +1,58 @@
+@use '../abstracts' as a;
+
+#herosearch {
+	padding-top: a.$padding;
+	padding-bottom: a.$padding;
+
+	.nested-container {
+		padding: 4rem;
+		// background-color: a.color(black);
+		border-radius: a.$border-radius;
+		position: relative;
+		overflow: hidden;
+
+
+		.title {
+			color: a.color(white);
+		}
+
+		.description {
+			color: a.color(white);
+		}
+
+		.input-group {
+			margin-bottom: 1.5rem;
+
+			.input-group-text {
+				background-color: white;
+				border: none;
+			}
+
+			input {
+				border: none;
+				padding: .6rem;
+				position: relative;
+				flex: 1 1 auto;
+				width: 1%;
+				min-width: 0;
+
+				&[placeholder] {
+					font-size: .8rem;
+				}
+			}
+		}
+
+		.filters {
+			background-color: a.color(white);
+			border-radius: 5px;
+			padding: .5rem;
+
+			.box {
+				.label {
+					font-size: .8rem;
+					opacity: .5;
+				}
+			}
+		}
+	}
+}

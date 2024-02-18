@@ -1,0 +1,28 @@
+@use '../abstracts' as a;
+
+#articles {
+	padding-bottom: a.$padding;
+
+	article {
+		padding-bottom: a.$padding;
+
+		.photo {
+			aspect-ratio: 16/9;
+			background-color: a.color(black);
+			border-radius: a.$border-radius;
+			margin-bottom: 1rem;
+		}
+
+		.title {
+			padding-bottom: .7rem;
+		}
+
+		.description {
+			padding-bottom: .9rem;
+		}
+
+		button {
+			@include a.button;
+		}
+	}
+}

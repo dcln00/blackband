@@ -21,14 +21,15 @@ const login = async () => {
 			password: user.password,
 		})
 		if (error) {
-			throw createError({
-				statusCode: 400,
-				statusMessage: 'Error Logging in',
-			})
+			alert(error)
+			return
 		}
 		navigateTo('confirm')
-	} catch (e) {
-		console.log(e)
+	} catch (err) {
+		throw createError({
+			statusCode: 400,
+			statusMessage: err.message,
+		})
 	} finally {
 		user.password = ''
 		user.email = ''

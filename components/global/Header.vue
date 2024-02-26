@@ -10,7 +10,7 @@ header.container-fluid.px-0
 			.logo
 				NuxtImg(src="/logo.svg" width="40" height="40")
 		.button.ms-auto
-			NuxtLink(v-if="user" to='/dashboard')
+			NuxtLink(v-if="user" to='/dashboard' external)
 				button Dashboard
 			NuxtLink(v-else :to="$route.path.includes('login') ?'/signup' : $route.path.includes('signup') ? '/login' : '/login'")
 				button {{$route.path.includes('login') ?'signup' : $route.path.includes('signup') ? 'login' : 'login'}}

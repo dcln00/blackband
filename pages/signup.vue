@@ -12,7 +12,7 @@ const user = reactive({
 
 const signup = async () => {
 	try {
-		const { error } = await supabase.auth.signUp({
+		const { data, error } = await supabase.auth.signUp({
 			email: user.email,
 			password: user.password,
 			options: {
@@ -22,17 +22,21 @@ const signup = async () => {
 			},
 		})
 
-		if (error) {
-			throw createError({
-				statusCode: 401,
-				statusMessage: 'Enter Correct Details',
-			})
+		if (data.user && data.user.identities && data.user.identities.length === 0) {
+			return alert("User already Exists")
 		}
 
-		alert('Login with your email address')
+		if (error) {
+			return alert(error)
+		}
+
+		alert('Confirm your email address')
 		navigateTo('/login')
-	} catch (e) {
-		console.log(e)
+	} catch (err) {
+		throw createError({
+			statusCode: 401,
+			statusMessage: err.message,
+		})
 	} finally {
 		user.email = ''
 		user.password = ''

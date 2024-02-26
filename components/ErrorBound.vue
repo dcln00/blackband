@@ -1,12 +1,12 @@
-<template lang="pug">
-.error-bound.d-flex
-	Icon(name="charm:circle-cross" size='1em')
-	.message {{ message }}
-</template>
-
 <script setup lang="ts">
 defineProps(['message'])
 </script>
+
+<template lang="pug">
+.error-bound.d-flex.align-items-center
+	Icon(name="charm:circle-cross" size='1.2em' color="red")
+	.message {{ message }}
+</template>
 
 <style lang="scss">
 .error-bound {
@@ -21,4 +21,3 @@ defineProps(['message'])
 	}
 }
 </style>
-

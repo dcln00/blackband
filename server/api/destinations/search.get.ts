@@ -2,9 +2,10 @@ import { Agent } from 'undici'
 import crypto from 'node:crypto'
 
 export default defineEventHandler(async (event) => {
+	const {query} = getQuery(event)
 	const config = useRuntimeConfig()
 
-	const article = await $fetch(config.public.apiBaseUrl, {
+	const places = await $fetch(config.public.apiBaseUrl, {
 		dispatcher: new Agent({
 			connect: {
 				rejectUnauthorized: false,
@@ -13,29 +14,43 @@ export default defineEventHandler(async (event) => {
 		}),
 		query: {
 			query: `
-			query getPosts {
-				posts(first:3, where: {categoryName: "featured"}){
+			query getDestinations {
+				destinations(first: 10, where: {search: "${query}"}) {
 				  nodes {
-					title
-					excerpt
-					uri
-					featuredImage {
+					author {
 					  node {
-						sourceUrl
+						name
 					  }
 					}
+					destinationCategories {
+						nodes {
+						  name
+						}
+					}
+					title
+					slug
+					featuredImage {
+					  node {
+						sourceUrl(size: LARGE)
+					  }
+					}
+					acfDestinations {
+					  price
+					}
+					id
+					uri
 				  }
 				}
 			  }`,
 		},
 	})
 
-	if (!article) {
+	if (!places) {
 		throw createError({
 			statusCode: 500,
 			statusMessage: 'Cannot Fetch Page',
 		})
 	}
 
-	return article.data.posts.nodes
+	return places.data.destinations.nodes
 })

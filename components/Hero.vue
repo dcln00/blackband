@@ -1,9 +1,3 @@
-<template lang="pug">
-section#hero
-	.nested
-		NuxtImg(:src="photo")
-</template>
-
 <script setup lang="ts">
 defineProps({
 	photo: {
@@ -12,3 +6,9 @@ defineProps({
 	}
 })
 </script>
+
+<template lang="pug">
+section#hero
+	.nested
+		NuxtImg(:src="photo")
+</template>

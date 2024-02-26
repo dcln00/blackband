@@ -1,3 +1,8 @@
+<script lang="ts" setup>
+defineProps(['title', 'handleShow', 'show', 'selected', 'id'])
+</script>
+
+
 <template lang="pug">
 .col-md-6
 	.accordion-header.d-flex(@click="handleShow")
@@ -10,8 +15,3 @@
 			ul
 				slot
 </template>
-
-<script lang="ts" setup>
-
-defineProps(['title', 'handleShow', 'show', 'selected', 'id'])
-</script>

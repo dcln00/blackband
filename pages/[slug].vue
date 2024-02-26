@@ -1,9 +1,3 @@
-<template lang="pug">
-section#pages.container-fluid.px-0
-	.container
-		Content(:data="data")
-</template>
-
 <script lang="ts" setup>
 const {params: { slug }} = useRoute();
 
@@ -11,6 +5,18 @@ const query = computed(() => `/api/page/${slug}`)
 
 const { data, error } = await useFetch(query.value)
 
+useHead({
+	titleTemplate: (title) => {
+		// @ts-expect-error
+		const pageTitle = slug.replace(/-/g, ' ')
+
+		if(slug.includes('-')) {
+			return `${capitalize(pageTitle)} - ${title}`
+		}
+
+		return `${capitalize(slug as string)} - ${title}`
+	},
+})
 
 if (error.value) {
 	throw createError({
@@ -32,3 +38,9 @@ definePageMeta({
 	},
 });
 </script>
+
+<template lang="pug">
+section#pages.container-fluid.px-0
+	.container
+		Content(:data="data")
+</template>

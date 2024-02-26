@@ -1,3 +1,7 @@
+<script setup lang="ts">
+defineProps(["photo", "title", "category", "date"]);
+</script>
+
 <template lang="pug">
 section#jumbo
 	.nested.d-flex.justify-content-center.align-items-center
@@ -8,10 +12,6 @@ section#jumbo
 				.title {{ title }}
 				.date {{ $dayjs(date).format('MMMM DD YYYY') }}
 </template>
-
-<script setup lang="ts">
-defineProps(["photo", "title", "category", "date"]);
-</script>
 
 <style lang="scss">
 @use "../assets/style/abstracts" as a;

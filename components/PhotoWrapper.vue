@@ -1,8 +1,3 @@
-<template lang="pug">
-.photo-wrapper
-	NuxtImg(:src="photo")
-</template>
-
 <script setup lang="ts">
 defineProps({
 	photo: {
@@ -11,3 +6,8 @@ defineProps({
 	}
 })
 </script>
+
+<template lang="pug">
+.photo-wrapper
+	NuxtImg(:src="photo")
+</template>

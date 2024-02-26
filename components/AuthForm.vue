@@ -1,45 +1,45 @@
 <script lang="ts" setup>
-const username = ref('')
-const email = ref('')
-const password = ref('')
+defineProps(['auth', 'user', 'disabled'])
 </script>
 
 <template lang="pug">
-form
+form(@submit.prevent="auth")
 	.input-group(v-if='$route.path.includes("signup")')
 		span#input-group-left-example.input-group-text
 			Icon(name="ph:user-bold" size='1em')
 		input.form-control(
 			type="text"
-			v-model="username"
-			placeholder="Username"
-			aria-label="Username"
+			v-model="user.fullname"
+			placeholder="Full Name"
+			aria-label="Full Name"
 			aria-describedby="input-group-left"
 			autoComplete="on"
 			)
 	.input-group
-		span#input-group-left-example.input-group-text
+		span#input-group-left-example.input-group-text(:style="disabled ? {backgroundColor: '#e9ecef'} : {}")
 			Icon(name="material-symbols:mail-outline" size='1em')
 		input.form-control(
 			type="email"
-			v-model="email"
+			v-model="user.email"
 			placeholder="Email"
 			aria-label="Email"
 			aria-describedby="input-group-left"
 			autoComplete="on"
+			:disabled="disabled"
 			)
 	.input-group
-		span#input-group-left-example.input-group-text
+		span#input-group-left-example.input-group-text(:style="disabled ? {backgroundColor: '#e9ecef'} : {}")
 			Icon(name="material-symbols:lock-outline" size='1em')
 		input.form-control(
 			type="password"
-			v-model="passweord"
+			v-model="user.password"
 			placeholder="Password"
 			aria-label="Password"
 			aria-describedby="input-group-left"
+			:disabled="disabled"
 			)
 	.button
-		button(type="button") {{$route.path.includes('login') ?'login' : $route.path.includes('signup') ? 'signup' : ''}}
+		button(type="submit") {{$route.path.includes('login') ?'login' : $route.path.includes('signup') ? 'signup' : ''}}
 </template>
 
 <style lang="scss" scoped>
@@ -54,7 +54,7 @@ form
 	}
 
 	input {
-		padding: .6rem;
+		padding: 0.6rem;
 		position: relative;
 		flex: 1 1 auto;
 		width: 1%;
@@ -64,7 +64,7 @@ form
 		box-shadow: none;
 
 		&[placeholder] {
-			font-size: .8rem;
+			font-size: 0.8rem;
 		}
 	}
 }
@@ -72,12 +72,12 @@ form
 .button {
 	padding-top: 1rem;
 	button {
-	@include a.button;
-	border: 1px solid black;
-	border-radius: a.$border-radius;
-	padding:.8rem 2rem;
-	display: block;
-	margin: 0 auto;
-}
+		@include a.button;
+		border: 1px solid black;
+		border-radius: a.$border-radius;
+		padding: 0.8rem 2rem;
+		display: block;
+		margin: 0 auto;
+	}
 }
 </style>

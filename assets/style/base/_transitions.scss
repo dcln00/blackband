@@ -1,3 +1,5 @@
+// NAVIGATION TRANSITIONS
+
 .nav-enter-active,
 .nav-leave-active {
 	transition: all .4s;
@@ -26,4 +28,53 @@
 
 .overlay-enter-from {
 	opacity: 0;
+}
+
+// MODAL TRANSITIONS
+
+.ovlay-enter-active,
+.ovlay-leave-active {
+	transition: all .1s;
+	  transition-timing-function: ease-in;
+}
+
+.ovlay-leave-to {
+	  opacity: 0;
+}
+
+.ovlay-enter-from {
+	opacity: 0;
+}
+
+.modal-enter-active,
+.modal-leave-active {
+	transition: all .3s;
+	  transition-timing-function: ease-in;
+}
+
+.modal-leave-to {
+	transform: translate(0, -10%);
+	  opacity: 0;
+}
+
+.modal-enter-from {
+	transform: translate(0, -10%);
+	opacity: 0;
+}
+
+// PAGE TRANSITIONS
+
+.page-enter-active,
+.page-leave-active {
+  transition: all 0.5s;
+}
+
+.page-leave-to {
+  opacity: 0;
+  transform: translateX(50%);
+}
+
+.page-enter {
+  opacity: 0;
+  transform: translateX(-50%);
 }

@@ -1,15 +1,21 @@
-<template lang="pug">
-section#pages.container-fluid.px-0
-	.container
-		Content(:data="data")
-</template>
-
 <script setup>
 const { params } = useRoute();
 
 const query = computed(() => `/api/posts/${params.slug}`)
 
 const { data } = await useFetch(query.value)
+
+useHead({
+	titleTemplate: (title) => {
+		const pageTitle = params.slug.replace(/-/g, ' ')
+
+		if(params.slug.includes('-')) {
+			return `${capitalize(pageTitle)} - ${title}`
+		}
+
+		return `${capitalize(params.slug)} - ${title}`
+	},
+})
 
 definePageMeta({
 	validate: async ({ params }) => {
@@ -28,6 +34,12 @@ definePageMeta({
 	},
 });
 </script>
+
+<template lang="pug">
+section#pages.container-fluid.px-0
+	.container
+		Content(:data="data")
+</template>
 
 <style>
 #pages {

@@ -1,3 +1,4 @@
 <template lang="pug">
-h1 Account
+main
+	slot
 </template>

@@ -1,9 +1,17 @@
 <script setup lang="ts">
 import { useBookings } from '../../stores/Bookings'
 const props = defineProps(['price', 'closeModal', 'data'])
+const supabase = useSupabaseClient()
 const store = useBookings()
 const dates = ref()
 const guestCount = ref(0)
+const loading = ref(false)
+const user = useSupabaseUser()
+
+// .select(`checkin_date, checkout_date, price, guest_count, name, photo, location`)
+// .eq('id', user.value.id)
+// .single()
+
 const guestAdd = computed(() => {
 	if (guestCount.value > 10) {
 		return
@@ -19,22 +27,29 @@ const guestMinus = computed(() => {
 	return guestCount.value--
 })
 
-function handleSubmit() {
+async function handleSubmit() {
 	if (!dates.value || !guestCount.value) return
 
-	const bookingInput = reactive({
-		name: props.data?.title,
-		location: 'Accra, Ghana',
-		photo: props.data?.featuredImage?.node?.sourceUrl || null,
+	// @ts-expect-error
+	const { error } = await supabase.from('bookings').insert({
+		user_id: user.value?.id,
 		price: props.price,
-		dates: dates.value,
-		numGuests: guestCount.value,
+		name: props.data?.title,
+		photo: props.data?.featuredImage?.node?.sourceUrl,
+		location: 'Accra, Ghana',
+		checkin_date: dates.value[0],
+		checkout_date: dates.value[1],
+		guest_count: guestCount.value,
+		notes: `user '${user.value?.email}' added a new booking`
 	})
 
-	store.addBookings(bookingInput)
+	if(error) {
+		console.log(error)
+		return
+	}
 
 	props.closeModal()
-	
+
 	navigateTo('/dashboard/bookings')
 }
 </script>

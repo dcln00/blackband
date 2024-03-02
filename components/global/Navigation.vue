@@ -11,11 +11,9 @@ defineProps(['isOpen', 'closeNav'])
 
 function handleShow(id: String) {
 	show.value = !show.value
-
 	if (selected.value !== id) {
 		show.value = true
 	}
-
 	selected.value = id
 }
 
@@ -33,34 +31,6 @@ const cards = [
 		url: '/',
 	},
 ]
-
-// const accordion = [
-// 	{
-// 		title: "Blackband",
-// 		items: ["Culture", "Lifestyle", "Business"],
-// 		id: 1,
-// 	},
-// 	{
-// 		title: "Culture & Local Experiences",
-// 		items: ["Business", "Lifestyle", "Culture"],
-// 		id: 2,
-// 	},
-// 	{
-// 		title: "Business & Advisory Services",
-// 		items: ["Culture", "Lifestyle", "Business"],
-// 		id: 3,
-// 	},
-// 	{
-// 		title: "Packages",
-// 		items: ["Culture", "Lifestyle", "Business"],
-// 		id: 4,
-// 	},
-// 	{
-// 		title: "Consultancy",
-// 		items: ["Culture", "Lifestyle", "Business"],
-// 		id: 5,
-// 	},
-// ];
 </script>
 
 <template lang="pug">

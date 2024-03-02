@@ -36,6 +36,7 @@ export default defineEventHandler(async (event) => {
 				  }
 				  id
 				  title
+				  slug
 				  featuredImage {
 					node {
 					  sourceUrl(size: LARGE)

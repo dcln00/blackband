@@ -1,6 +1,6 @@
 <template lang="pug">
 div
-	DashboardNav
+	DashboardNav(v-if="$route.name !== 'dashboard-destinations-slug'")
 	main
 		slot
 </template>

@@ -9,7 +9,7 @@ defineProps({
 
 <template lang="pug">
 .dest-wrapper
-	NuxtImg(:src="photo")
+	NuxtImg(:src="photo" preload quality="10" loading="lazy" format="webp")
 </template>
 
 <style lang="scss">

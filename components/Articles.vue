@@ -10,5 +10,5 @@ section#articles.container
 	Heading(title="Featured Travel Articles")
 	ErrorBound(v-if="error" message="Cannot Load Featured Articles")
 	.row
-		Article(v-for="item in data" :title="item.title" :description="trimExcerpt(item.excerpt)" :url="item.uri" :photo="item.featuredImage.node.sourceUrl")
+		LazyArticle(v-for="item in data" :title="item.title" :description="trimExcerpt(item.excerpt)" :url="item.uri" :photo="item.featuredImage.node.sourceUrl")
 </template>

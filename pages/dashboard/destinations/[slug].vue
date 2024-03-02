@@ -29,7 +29,7 @@ div
 			DashBookingForm(:price="data?.acfDestinations?.price" :close-modal="showModal" :data="data")
 	section#destination-hero.container-fluid.px-0
 		.photo
-			.back(@click="$router.go(-1)")
+			.back(@click="navigateTo('/dashboard/destinations')")
 				Icon(name="ph:caret-circle-left-fill" color="white" size="2em")
 			DashDestWrapper(:photo="data?.featuredImage?.node?.sourceUrl")
 	section#dest-heading.container 

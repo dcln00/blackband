@@ -1,5 +1,6 @@
 <script setup lang="ts">
 const supabase = useSupabaseClient()
+const route = useRoute().query
 
 useHead({
 	titleTemplate: `Login - %s`,
@@ -24,7 +25,15 @@ const login = async () => {
 			alert(error)
 			return
 		}
-		navigateTo('confirm')
+
+		if(route.redirectTo) {
+
+			navigateTo(`confirm?redirectTo=${route.redirectTo}`)
+		}else {
+			
+			navigateTo('confirm')
+		}
+		
 	} catch (err) {
 		throw createError({
 			statusCode: 400,

@@ -1,25 +1,39 @@
 <script setup lang="ts">
 const store = useBookings()
+const supabase = useSupabaseClient()
+const user = useSupabaseUser()
+const loading = ref(false)
 
 useHead({
 	titleTemplate: `Bookings - %s`
 })
+
+loading.value = true
+
+const { data, error } = await supabase
+	.from('bookings')
+	.select(`photo, name, location, guest_count, checkin_date, checkout_date, price`)
+	.eq('user_id', user.value?.id)
+
+loading.value = false
+
 </script>
 
 <template lang="pug">
 div 
 	DashTitle(title="bookings")
-	section#bookings-err.container(v-if="!store.bookings.length")
+	section#bookings-err.container(v-if="!data.length")
 		ErrorBound(message="You currently have no bookings")
-	section#bookings.container
-		.booking.d-flex(v-for="item in store.bookings" :key="item.price")
+	section#load(v-if="loading") pending
+	section#bookings.container(v-else)
+		.booking.d-flex(v-for="item in data.reverse()" :key="item.price")
 			.photo.d-flex.align-items-center.justify-content-center
 				Icon(v-if="!item.photo" name="material-symbols:broken-image-outline")
 				NuxtImg(v-else :src="item.photo")
 			.details
 				.title {{ item.name }}
-				.date(v-if="!item.dates[1]") {{ $dayjs(item.dates.at(0)).format('MMM DD, YYYY') }}
-				.date(v-else) {{ $dayjs(item.dates.at(0)).format('MMM DD') }} - {{ $dayjs(item.dates.at(1)).format('DD, YYYY') }}
+				.date(v-if="!item.checkout_date") {{ $dayjs(item.checkin_date).format('MMM DD, YYYY') }}
+				.date(v-else) {{ $dayjs(item.checkin_date).format('MMM DD') }} - {{ $dayjs(item.checkout_date).format('DD, YYYY') }}
 				.location {{ item.location }}
 </template>
 

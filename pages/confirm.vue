@@ -1,9 +1,12 @@
 <script setup lang="ts">
 const user = useSupabaseUser()
+const route = useRoute().query
 
 watch(user, () => {
   if (user.value) {
-      return navigateTo('dashboard')
+		if(route.redirectTo) return navigateTo(`${route.redirectTo}`)
+
+		return navigateTo('dashboard')
   }
 }, { immediate: true })
 

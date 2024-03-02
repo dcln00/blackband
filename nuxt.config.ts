@@ -23,7 +23,7 @@ export default defineNuxtConfig({
 		'~/components/ui',
 		'~/components',
 	],
-	modules: ['@nuxtjs/device', '@nuxt/image', 'nuxt-icon', 'dayjs-nuxt', '@nuxtjs/supabase', 'nuxt-primevue', '@pinia/nuxt',],
+	modules: ['@nuxtjs/device', '@nuxt/image', 'nuxt-icon', 'dayjs-nuxt', '@nuxtjs/supabase', 'nuxt-primevue', '@pinia/nuxt', 'nuxt-swiper', '@vueuse/nuxt',],
 	supabase: {
 		redirect: false,
 	},

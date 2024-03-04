@@ -16,11 +16,20 @@ export default defineNuxtConfig({
 			],
 		},
 	},
+	vite: {
+		css: {
+			preprocessorOptions: {
+				scss: {
+					additionalData: '@use "~/assets/style/abstracts" as a;',
+				},
+			},
+		},
+	},
 	css: ['bootstrap/dist/css/bootstrap.min.css', '~/assets/style/app.scss'],
 	components: [
 		{ path: '~/components/dashboard', prefix: 'Dash' },
+		{ path: '~/components/ui', prefix: 'Ui' },
 		'~/components/global',
-		'~/components/ui',
 		'~/components',
 	],
 	modules: ['@nuxtjs/device', '@nuxt/image', 'nuxt-icon', 'dayjs-nuxt', '@nuxtjs/supabase', 'nuxt-primevue', '@pinia/nuxt', 'nuxt-swiper', '@vueuse/nuxt',],

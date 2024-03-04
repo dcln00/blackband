@@ -13,14 +13,14 @@ const user = useSupabaseUser()
 // .single()
 
 const guestAdd = computed(() => {
-	if (guestCount.value > 10) {
+	if (guestCount.value > 9) {
 		return
 	}
 
 	return guestCount.value++
 })
 const guestMinus = computed(() => {
-	if (guestCount.value < 0) {
+	if (guestCount.value < 1) {
 		return
 	}
 
@@ -87,6 +87,7 @@ form(@submit.prevent="handleSubmit")
 					aria-label="Price"
 					aria-describedby="input-group-left"
 					autoComplete="on"
+					disabled
 					)
 				span#input-group-left-example.input-group-text(@click="() => guestAdd" :style="{cursor: 'pointer'}") +
 
@@ -96,8 +97,6 @@ form(@submit.prevent="handleSubmit")
 </template>
 
 <style lang="scss" scoped>
-@use '../../assets/style/abstracts' as a;
-
 .price-disabled {
 	margin-bottom: 1rem;
 }

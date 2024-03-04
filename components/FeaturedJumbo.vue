@@ -8,14 +8,13 @@ section#jumbo
 		div
 			PhotoWrapper(:photo="photo")
 			.details
-				span.category(v-for="item in category" :key="item") {{ item.name }}
+				.cat-list.d-flex.justify-content-center
+					.category(v-for="item in category" :key="item") {{ item.name }}
 				.title {{ title }}
 				.date {{ $dayjs(date).format('MMMM DD YYYY') }}
 </template>
 
 <style lang="scss">
-@use "../assets/style/abstracts" as a;
-
 #jumbo {
 	padding-top: calc(a.$padding / 2);
 	padding-bottom: a.$padding;
@@ -25,13 +24,17 @@ section#jumbo
 		aspect-ratio: 8/9;
 		position: relative;
 		overflow: hidden;
+		padding: 2rem;
 
 		.details {
 			color: a.color(white);
 			text-align: center;
 
-			span.category {
-				display: inline-block;
+			.cat-list {
+				column-gap: 12px;
+			}
+
+			.category {
 				padding-bottom: 1rem;
 				font-size: a.$eight;
 				text-transform: uppercase;

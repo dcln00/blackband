@@ -15,7 +15,6 @@ section#dash-profile.container
 </template>
 
 <style lang="scss">
-@use '../../assets/style/abstracts' as a;
 #dash-profile {
 	.nested {
 		

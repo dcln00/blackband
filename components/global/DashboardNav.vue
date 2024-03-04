@@ -38,8 +38,6 @@ const mobileNav = [
 </template>
 
 <style lang="scss">
-@use '../../assets/style/abstracts' as a;
-
 #nav.mobile {
 	position: fixed;
 	bottom: 0;

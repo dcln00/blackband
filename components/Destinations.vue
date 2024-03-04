@@ -1,12 +1,26 @@
 <script setup lang="ts">
+const nuxtApp = useNuxtApp()
 const url = computed(() => `/api/destinations/places`)
 
-const { data: places, pending, error } = useLazyFetch(url)
+const { data: places, pending, error } = useLazyFetch(url, {
+	key: 'destinations', 
+	getCachedData: (key) => {
+		if (!nuxtApp.isHydrating && nuxtApp.payload.data[key]) {
+			return nuxtApp.payload.data[key]
+		}
+
+		if (nuxtApp.static.data[key]) {
+			return nuxtApp.static.data[key]
+		}
+
+		return null
+	}
+})
 </script>
 
 <template lang="pug">
 section#destinations.container-fluid.px-0
-	Heading(title="Destinations" description="Discover Destinations Ideal for a Tailor Made Journey" align='center' show-description)
+	UiHeading(title="Destinations" description="Discover Destinations Ideal for a Tailor Made Journey" align='center' show-description)
 	Swiper(
 		:modules="[SwiperAutoplay]"
 		:slides-per-view="1"
@@ -16,5 +30,5 @@ section#destinations.container-fluid.px-0
 		SwiperSlide(v-for="item in places" :key="item.title")
 			.slider
 				PhotoWrapper(:photo='item.featuredImage.node.sourceUrl')
-				Heading(:title="item.title" description="Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat." align='left' :url="`/destinations/${item.slug}`"  show-button buttonText="view" show-description)
+				UiHeading(:title="item.title" description="Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat." align='left' :url="`/destinations/${item.slug}`"  show-button buttonText="view" show-description)
 </template>

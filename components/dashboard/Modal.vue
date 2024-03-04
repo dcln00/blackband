@@ -16,11 +16,14 @@ div
 </template>
 
 <style lang="scss" scoped>
-@use '../../assets/style/abstracts' as a;
-
 .overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
 	background-color: rgba(0, 0, 0, 0.7);
 	z-index: 20;
+	width: 100%;
+	height: 100dvh;
 }
 
 #modal {

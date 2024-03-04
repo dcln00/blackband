@@ -19,7 +19,6 @@ section#search.container
 </template>
 
 <style lang="scss" scoped>
-@use '../../assets/style/abstracts' as a;
 .input-group {
 	margin-bottom: 1rem;
 

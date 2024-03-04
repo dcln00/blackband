@@ -1,10 +1,4 @@
 <script setup lang="ts">
-// const auth = useAuth()
-// console.log(auth.value.isLoggedIn)
-// watch(() => auth.value.isLoggedIn, () => {
-// 	console.log(auth.value.isLoggedIn)
-// })
-
 useHead({
 	title: `Blackband - Connecting people to cultural experiences in Africa`,
 	meta: [{ name: "description", content: "Blackband" }],

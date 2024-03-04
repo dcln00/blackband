@@ -1,9 +1,23 @@
 <script lang="ts" setup>
-const {params: { slug }} = useRoute();
+const {params: { slug }} = useRoute()
+const nuxtApp = useNuxtApp()
 
 const query = computed(() => `/api/page/${slug}`)
 
-const { data, error } = await useFetch(query.value)
+const { data, error } = await useFetch(query.value, {
+	key: `pages-${query.value}`,
+	getCachedData: (key) => {
+		if (!nuxtApp.isHydrating && nuxtApp.payload.data[key]) {
+			return nuxtApp.payload.data[key]
+		}
+
+		if (nuxtApp.static.data[key]) {
+			return nuxtApp.static.data[key]
+		}
+
+		return null
+	}
+})
 
 useHead({
 	titleTemplate: (title) => {

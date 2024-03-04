@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-defineProps(['data'])
+const props = defineProps(['data'])
 const isOpen = ref(false)
 const showModal = () => {
 	isOpen.value = !isOpen.value
@@ -8,11 +8,22 @@ const showModal = () => {
 
 <template lang="pug">
 div
-	FeaturedJumbo(v-if="$route.params.parentSlug === 'featured'" :photo="data?.featuredImage?.node?.sourceUrl" :title="data?.title" :category="data?.categories?.nodes" :date="data?.date")
+	//- FEATURED ARTICLES
+	div(v-if="$route.params.parentSlug === 'featured'")
+		FeaturedJumbo(:photo="data?.featuredImage?.node?.sourceUrl" :title="data?.title" :category="data?.categories?.nodes" :date="data?.date")
 
-	Hero(v-else-if="data && $route.params.parentSlug !== 'destinations'" :photo="data?.featuredImage?.node?.sourceUrl")
+		ContentBody(v-if="data" :title="data?.title")
+			div(v-html="data?.content")
 
-	div(v-if="$route.params.parentSlug === 'destinations'")
+	//- PAGES W PARENT
+	div(v-else-if="data && $route.params.parentSlug !== 'destinations'")
+		Hero(:photo="data?.featuredImage?.node?.sourceUrl")
+
+		ContentBody(v-if="data" :title="data?.title")
+				div(v-html="data?.content")
+
+	//- DESTINATION PAGE
+	div(v-else)
 		Teleport(to="body")
 			DashModal(:is-open="isOpen" :close-modal="showModal")
 				.modal-message Login To book
@@ -51,15 +62,9 @@ div
 					.price {{ `$${data?.acfDestinations?.price}` }}
 					.person Per Person
 				button.ms-auto(@click="showModal") Book
-
-	ContentBody(v-if="data && $route.params.parentSlug !== 'destinations'" :title="data?.title")
-		div(v-html="data?.content")
-
 </template>
 
 <style lang="scss">
-@use '../assets/style/abstracts' as a;
-
 .modal-message {
 	text-align: center;
 	padding-bottom: 1rem;

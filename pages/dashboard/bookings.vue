@@ -2,21 +2,15 @@
 const store = useBookings()
 const supabase = useSupabaseClient()
 const user = useSupabaseUser()
-const loading = ref(false)
 
 useHead({
 	titleTemplate: `Bookings - %s`
 })
 
-loading.value = true
-
 const { data, error } = await supabase
 	.from('bookings')
 	.select(`photo, name, location, guest_count, checkin_date, checkout_date, price`)
 	.eq('user_id', user.value?.id)
-
-loading.value = false
-
 </script>
 
 <template lang="pug">
@@ -24,8 +18,7 @@ div
 	DashTitle(title="bookings")
 	section#bookings-err.container(v-if="!data.length")
 		ErrorBound(message="You currently have no bookings")
-	section#load(v-if="loading") pending
-	section#bookings.container(v-else)
+	section#bookings.container
 		.booking.d-flex(v-for="item in data.reverse()" :key="item.price")
 			.photo.d-flex.align-items-center.justify-content-center
 				Icon(v-if="!item.photo" name="material-symbols:broken-image-outline")
@@ -38,8 +31,6 @@ div
 </template>
 
 <style lang="scss">
-@use '../../assets/style/abstracts' as a;
-
 #bookings {
 
 	.booking {

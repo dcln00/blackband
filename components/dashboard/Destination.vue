@@ -16,13 +16,10 @@ defineProps(['category', 'rating', 'title', 'price', 'location', 'photo', 'slug'
 			NuxtLink(:to="`/dashboard/destinations/${slug}`")
 				.title {{ title }}
 			.price.ms-auto ${{ price }}
-		.box.d-flex.align-items-center
-			.location Accra, Ghana
+		.location Accra, Ghana
 </template>
 
 <style lang="scss">
-@use '../../assets/style/abstracts' as a;
-
 .destination {
 	padding-bottom: 1.5rem;
 	.photo {
@@ -54,6 +51,10 @@ defineProps(['category', 'rating', 'title', 'price', 'location', 'photo', 'slug'
 		padding-top: 1rem;
 		position: relative;
 
+		.box {
+			width: 80%;
+		}
+
 		.title {
 			text-transform: capitalize;
 			font-weight: 500;
@@ -63,10 +64,11 @@ defineProps(['category', 'rating', 'title', 'price', 'location', 'photo', 'slug'
 		}
 
 		.price {
-			font-size: 1.4rem;
+			font-size: 1.2rem;
 			position: absolute;
-			font-weight: 500;
+			font-weight: 900;
 			right: 0;
+			top: 1rem;
 		}
 
 		.location {

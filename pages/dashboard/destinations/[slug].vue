@@ -8,9 +8,18 @@ const isOpen = ref(false)
 const url = computed(() => `/api/destinations/${slug}`)
 
 const { data, error, pending } = await useFetch(url.value, {
-	getCachedData(key) {
-		return nuxtApp.payload.data[key] || nuxtApp.static.data[key]
-	},
+	key: `destinations-${slug}`,
+	getCachedData: (key) => {
+		if (!nuxtApp.isHydrating && nuxtApp.payload.data[key]) {
+			return nuxtApp.payload.data[key]
+		}
+
+		if (nuxtApp.static.data[key]) {
+			return nuxtApp.static.data[key]
+		}
+
+		return null
+	}
 })
 
 const showModal = () => {
@@ -63,8 +72,6 @@ div
 </template>
 
 <style lang="scss">
-@use '../../../assets/style/abstracts' as a;
-
 #book-bar {
 	position: fixed;
 	z-index: 10;

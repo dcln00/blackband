@@ -9,7 +9,9 @@ const logout = async () => {
 			statusMessage: 'Something went wrong'
 		})
 	}
-	return navigateTo('/')
+	return navigateTo('/', {
+		external: true
+	})
 }
 
 const settings = [

@@ -1,13 +1,26 @@
 <script lang="ts" setup>
-const query = computed(() => `/api/posts/articles`);
+const nuxtApp = useNuxtApp()
+const query = computed(() => `/api/posts/articles`)
 
-const { data, error } = await useFetch(query.value);
+const { data, error, pending, refresh } = await useFetch(query.value, {
+	key: 'articles',
+	getCachedData: (key) => {
+		if (!nuxtApp.isHydrating && nuxtApp.payload.data[key]) {
+			return nuxtApp.payload.data[key]
+		}
+
+		if (nuxtApp.static.data[key]) {
+			return nuxtApp.static.data[key]
+		}
+
+		return null
+	}
+})
 </script>
-
 
 <template lang="pug">
 section#articles.container
-	Heading(title="Featured Travel Articles")
+	UiHeading(title="Featured Travel Articles")
 	ErrorBound(v-if="error" message="Cannot Load Featured Articles")
 	.row
 		LazyArticle(v-for="item in data" :title="item.title" :description="trimExcerpt(item.excerpt)" :url="item.uri" :photo="item.featuredImage.node.sourceUrl")

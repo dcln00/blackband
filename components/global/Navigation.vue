@@ -20,15 +20,15 @@ function handleShow(id: String) {
 const cards = [
 	{
 		title: 'The Blackband Club',
-		url: '/',
+		url: '/blackband-club',
 	},
 	{
 		title: 'Blackband Card',
-		url: '/',
+		url: '/the-blackband-card',
 	},
 	{
 		title: 'Blackband Vendors',
-		url: '/',
+		url: '/blackband-vendors',
 	},
 ]
 </script>
@@ -53,7 +53,7 @@ div
 						li(@click="closeNav") {{ item.title }}
 			hr
 			.navigation-cards
-				NavCards(v-for="item in cards" :title="item.title" :url='item.url' :key="item.title")
+				NavCards(v-for="item in cards" :title="item.title" :url='item.url' :key="item.title" @close-nav="closeNav")
 			hr
 			.navigation-footer
 				.links

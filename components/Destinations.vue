@@ -30,5 +30,5 @@ section#destinations.container-fluid.px-0
 		SwiperSlide(v-for="item in places" :key="item.title")
 			.slider
 				PhotoWrapper(:photo='item.featuredImage.node.sourceUrl')
-				UiHeading(:title="item.title" description="Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat." align='left' :url="`/destinations/${item.slug}`"  show-button buttonText="view" show-description)
+				UiHeading(:title="item.title" :description="trimExcerpt(item.content, 20)" align='left' :url="`/destinations/${item.slug}`"  show-button buttonText="view" show-description)
 </template>

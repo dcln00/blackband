@@ -41,7 +41,7 @@ if (error.value) {
 
 definePageMeta({
 	validate: async ({ params }) => {
-		if (params.slug !== "about") {
+		if (!params.slug) {
 			throw createError({
 				statusCode: 404,
 				statusMessage: "Page Not Found",

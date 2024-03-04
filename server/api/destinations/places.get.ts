@@ -16,6 +16,7 @@ export default defineEventHandler(async (event) => {
 			query getDestinations {
 				destinations(first: 10) {
 				  nodes {
+					content
 					author {
 					  node {
 						name

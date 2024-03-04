@@ -23,5 +23,5 @@ div
 		section#error.container-fluid.px-0
 			.container
 				Hero
-				Heading(:title="error.statusMessage || 'Page Not Found'" align="center" show-description :description="`we’re unable to locate the page you are looking for`" show-button button-text="home" :click="handleError")
+				UiHeading(:title="error.statusMessage || 'Page Not Found'" align="center" show-description :description="`we’re unable to locate the page you are looking for`" show-button button-text="home" :click="handleError")
 </template>

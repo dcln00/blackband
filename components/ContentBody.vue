@@ -1,10 +1,10 @@
 <script setup lang="ts">
-defineProps(['title'])
+defineProps(['title', 'titleStyle'])
 </script>
 
 <template lang="pug">
 section#content-body.container
-	.title(v-if="$route.params.parentSlug !== 'featured'") {{ title }}
+	.title(v-if="$route.params.parentSlug !== 'featured'" :style='titleStyle') {{ title }}
 	.text
 		slot
 </template>

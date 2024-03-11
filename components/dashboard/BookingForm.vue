@@ -36,7 +36,7 @@ async function handleSubmit() {
 		price: props.price,
 		name: props.data?.title,
 		photo: props.data?.featuredImage?.node?.sourceUrl,
-		location: 'Accra, Ghana',
+		location: props.data?.acfDestinations?.location || 'Accra, Ghana',
 		checkin_date: dates.value[0],
 		checkout_date: dates.value[1],
 		guest_count: guestCount.value,

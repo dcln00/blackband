@@ -47,7 +47,7 @@ div
 		.box.d-flex.justify-content-center.align-items-center
 			.category {{ data?.destinationCategories?.nodes[0].name }} 
 			.bullet •
-			.location Accra Ghana
+			.location {{ data?.acfDestinations?.location || 'Accra, Ghana' }}
 
 	section#dest-content.container(v-if="data?.content")
 		.title Summary

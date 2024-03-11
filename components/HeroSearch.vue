@@ -1,52 +1,77 @@
 <script lang="ts" setup>
 const route = useRoute()
 const searchQuery = ref('')
+const isOpen = ref(false)
+const url = useRequestURL()
+
+const filters = reactive({
+	trip: '',
+	location: ''
+})
+
+const showModal = () => {
+	isOpen.value = !isOpen.value
+	updateSearch()
+}
+
+const handleClose = () => {
+	filters.trip = ''
+	filters.location = ''
+	isOpen.value = !isOpen.value
+
+}
 
 const updateSearch = () => {
-	const url = new URL(window.location.href)
-	url.searchParams.set('search', searchQuery.value)
+	const url = useRequestURL()
+	url.searchParams.set('query', searchQuery.value)
+	if(filters.trip) url.searchParams.set('&trip', filters.trip)
+	if(filters.location) url.searchParams.set('&location', filters.location)
 	window.history.pushState({}, '', url.toString())
 }
 
-const filters = [
-	{
-		icon: 'mdi:umbrella-beach-outline',
-		label: 'Tropical'
-	},
-	{
-		icon: 'material-symbols:houseboat-outline-rounded',
-		label: 'Lakes'
-	},
+const handleSubmit = () => {
+	if (!searchQuery.value) return
+
+	navigateTo(`/search?query=${searchQuery.value}${filters.trip ? `&trip=${filters.trip}` : ''}${filters.location ? `&location=${filters.location}` : ''}`)
+}
+
+const filtersCat = [
 	{
 		icon: 'lucide:palmtree',
-		label: 'Beachview'
+		label: 'Destinations'
 	},
 	{
-		icon: 'mingcute:surfboard-line',
-		label: 'Surfing'
+		icon: 'mingcute:bus-2-line',
+		label: 'tours'
 	},
 	{
-		icon: 'ri:fire-line',
-		label: 'Trending'
+		icon: 'lucide:party-popper',
+		label: 'Detty December'
 	},
 ]
 </script>
 
 <template lang="pug">
-section#herosearch(:class="$device.isMobile ? 'container' : 'container-fluid px-0'")
-	.nested
-		PhotoWrapper(photo="/search.jpg")
-		UiHeading(title="This is blackband" show-description description="Embark on an extraordinary journey with Black Band, where we redefine travel in Africa with unwavering confidence." align="center")
-		.input-group
-			span.input-group-text
-				Icon(name="material-symbols:search")
-			input(v-model='searchQuery' @input="updateSearch" type='text' aria-label='Amount (to the nearest dollar)' placeholder='Destination')
-			span.input-group-text
-				Icon(name="ic:outline-settings-input-component")
-		.filters.d-flex.justify-content-around.align-items-center
-			.box.d-flex.flex-column.align-items-center(v-for="item in filters" key="item.label")
-				Icon(:name="item.icon" size="1.5em")
-				.label {{ item.label }}
+div
+	Teleport(to="body")
+		DashModal(:is-open="isOpen" :close-modal="showModal")
+			UiSearchFilters(@close-modal="handleClose" @save-filter="showModal" :filters="filters")
+
+	section#herosearch(:class="$device.isMobile ? 'container' : 'container-fluid px-0'")
+		.nested
+			PhotoWrapper(photo="/search.jpg")
+			UiHeading(title="This is blackband" show-description description="Embark on an extraordinary journey with Black Band, where we redefine travel in Africa with unwavering confidence." align="center")
+			form(@submit.prevent="handleSubmit")
+				.input-group
+					span.input-group-text
+						Icon(name="material-symbols:search")
+					input(v-model='searchQuery' @input="updateSearch" type='text' aria-label='Amount (to the nearest dollar)' placeholder='Destination')
+					span.input-group-text(@click="showModal")
+						Icon(name="flowbite:adjustments-horizontal-solid" size="1.2em")
+				.filters.d-flex.justify-content-around.align-items-center
+					.box.d-flex.flex-column.align-items-center(v-for="item in filtersCat" key="item.label")
+						Icon(:name="item.icon" size="1.5em")
+						.label {{ item.label }}
 </template>
 
 <style lang="scss" scoped>

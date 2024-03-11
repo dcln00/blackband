@@ -32,16 +32,12 @@ useHead({
 	},
 })
 
-if (error.value) {
-	throw createError({
-		statusCode: 404,
-		statusMessage: "Page Not Found",
-	});
-}
-
 definePageMeta({
 	validate: async ({ params }) => {
-		if (!params.slug) {
+		const query = computed(() => `/api/page/${params.slug}`)
+		const { data } = await useFetch(query.value)
+
+		if (!data.value) {
 			throw createError({
 				statusCode: 404,
 				statusMessage: "Page Not Found",

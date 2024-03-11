@@ -1,13 +1,10 @@
 <script lang="ts" setup>
-const query = computed(() => `/api/menu`)
-
-const { data, error } = await useFetch(query.value)
-
-const accordion = flatToHeirarchical(data.value)
-
+defineProps(['isOpen', 'closeNav'])
+const store = useAppNavigation()
 let show = ref(false)
 let selected = ref(null)
-defineProps(['isOpen', 'closeNav'])
+
+const query = computed(() => `/api/menu`)
 
 function handleShow(id: String) {
 	show.value = !show.value
@@ -17,20 +14,9 @@ function handleShow(id: String) {
 	selected.value = id
 }
 
-const cards = [
-	{
-		title: 'The Blackband Club',
-		url: '/blackband-club',
-	},
-	{
-		title: 'Blackband Card',
-		url: '/the-blackband-card',
-	},
-	{
-		title: 'Blackband Vendors',
-		url: '/blackband-vendors',
-	},
-]
+const { data, error } = await useFetch(query.value)
+
+const accordion = flatToHeirarchical(data.value)
 </script>
 
 <template lang="pug">
@@ -42,38 +28,39 @@ div
 		nav(v-if="isOpen")
 			.navigation-header.d-flex.align-items-center
 				NuxtLink(to="/")
-					.logo
+					.logo(@click="closeNav")
 						NuxtImg(src="/logo.svg" width="40" height="40")
 				.closeBtn.ms-auto(@click="closeNav")
 					Icon(name="solar:close-square-bold" size='1.5em')
 			
 			.navigation-body
-				UiAccordion(v-for="item in accordion" :title="item.title" :handle-show="() => handleShow(item.key)" :show="show" :key="item.title" :selected="selected" :id="item.key")
-					NuxtLink(v-for="item in item.children" :to="`${item?.url}`")
-						li(@click="closeNav") {{ item.title }}
+				NuxtErrorBoundary
+					template(#error="{ error }")
+						ErrorBound(:message="`Cannot Load Menu ${error}`")
+
+					UiAccordion(v-for="item in accordion" :title="item.title" :handle-show="() => handleShow(item.key)" :show="show" :key="item.title" :selected="selected" :id="item.key")
+						NuxtLink(v-for="item in item.children" :to="`${item?.url}`")
+							li(@click="closeNav") {{ item.title }}
 			hr
 			.navigation-cards
-				NavCards(v-for="item in cards" :title="item.title" :url='item.url' :key="item.title" @close-nav="closeNav")
+				NavCards(v-for="item in store.navigation.cards" :title="item.title" :url='item.url' :key="item.title" @close-nav="closeNav")
 			hr
 			.navigation-footer
 				.links
-					NuxtLink(to="/dashboard")
-						div(@click="closeNav") Account
-					NuxtLink(to="/about")
-						div(@click="closeNav") About
-					div Contact Us
+					NuxtLink(v-for="item in store.navigation.secondary" :key="item.title" :to="item.url")
+						div(@click="closeNav") {{ item.title }}
+
 				.sub-links
 					ul.d-flex.flex-wrap
-						li Cookie Policy 
-						li Privacy Policy 
-						li Terms of Use 
-						li Terms and Conditions
+						NuxtLink(v-for="item in store.navigation.	footer" :key="item.title" :to="item.url")
+							li(@click="closeNav") {{ item.title }}
+			
 				.socials.d-flex
-					Icon(name="fa6-brands:x-twitter" size="1.2em")
-					Icon(name='bi:instagram' size="1.2em")
+					NuxtLink(v-for="item in store.navigation.socials" :to="item.url" :key="item.title")
+						Icon(:name="item.name" size="1.2em")
 				.credits 
-					.copyright © 2024 Blackband
-					.powered Powered by The Base Agency
+					.copyright {{ store.navigation.subfooter.copyright }}
+					.powered {{ store.navigation.subfooter.credits }}
 </template>
 
 <style lang="scss" scoped>

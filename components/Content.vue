@@ -1,34 +1,66 @@
 <script lang="ts" setup>
 const props = defineProps(['data'])
 const isOpen = ref(false)
+const user = useSupabaseUser()
+const route = useRoute()
 const showModal = () => {
 	isOpen.value = !isOpen.value
 }
+
+// VALIDATE COMPONENTS
+const pages = computed(() => route.path === '/privacy-policy' || route.path === '/terms' ? true : false)
+
+const featuredPosts = computed(() => route.params.parentSlug === 'featured' ? true : false)
+
+const parentPages = computed(() => route.params.parentSlug !== 'destinations' ? true : false)
+
+const blackbandClub = computed(() => route.path === '/blackband-club' ? true : false)
 </script>
 
 <template lang="pug">
 div
 	//- FEATURED ARTICLES
-	div(v-if="$route.params.parentSlug === 'featured'")
+	div(v-if="featuredPosts")
 		FeaturedJumbo(:photo="data?.featuredImage?.node?.sourceUrl" :title="data?.title" :category="data?.categories?.nodes" :date="data?.date")
 
 		ContentBody(v-if="data" :title="data?.title")
 			div(v-html="data?.content")
+	
+	//- BLACKBAND SERVICES PAGES
+	div(v-else-if="blackbandClub")
+		ContentBody(v-if="data" :title="data?.title" :title-style="{paddingTop: '2rem'}")
+				div(v-html="data?.content")
+
+	//- PAGES WITHOUT HERO
+	div(v-else-if="pages")
+		ContentBody(v-if="data" :title="data?.title" :title-style="{paddingTop: '2rem'}")
+			div(v-html="data?.content")
+
 
 	//- PAGES W PARENT
-	div(v-else-if="data && $route.params.parentSlug !== 'destinations'")
+	div(v-else-if="parentPages")
+		Teleport(to="body")
+			DashModal(:is-open="isOpen" :close-modal="showModal")
+				.title Book travel services
+				UiBusinessTravelForm(:showModal="showModal")
+
 		Hero(:photo="data?.featuredImage?.node?.sourceUrl")
 
 		ContentBody(v-if="data" :title="data?.title")
-				div(v-html="data?.content")
+			div(v-html="data?.content")
+	
+			.blackband-buttons(v-if="$route.params.slug === 'business-travel'" @click="showModal")
+				button book now
 
 	//- DESTINATION PAGE
 	div(v-else)
 		Teleport(to="body")
 			DashModal(:is-open="isOpen" :close-modal="showModal")
-				.modal-message Login To book
-				NuxtLink(:href="`/login?redirectTo=/dashboard/destinations/${data?.slug}`")
-					button.book-button login
+				div(v-if='!user')
+					.modal-message Login To book
+					NuxtLink(:href="`/login?redirectTo=/dashboard/destinations/${data?.slug}`")
+						button.book-button login
+				DashBookingForm(:price="data?.acfDestinations?.price" :close-modal="showModal" :data="data" v-else)
 		section#destination-hero.container-fluid.px-0
 			.photo
 				.back(@click="$router.go(-1)")
@@ -40,7 +72,7 @@ div
 			.box.d-flex.justify-content-center.align-items-center
 				.category {{ data?.destinationCategories?.nodes[0].name }} 
 				.bullet •
-				.location Accra Ghana
+				.location {{ data?.acfDestinations?.location || 'Accra, Ghana' }}
 
 		section#dest-content.container(v-if="data?.content")
 			.title Summary
@@ -68,6 +100,10 @@ div
 .modal-message {
 	text-align: center;
 	padding-bottom: 1rem;
+}
+
+.blackband-buttons {
+	@include a.secondary-button;
 }
 
 .book-button {

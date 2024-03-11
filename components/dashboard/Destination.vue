@@ -1,5 +1,5 @@
 <script setup lang="ts">
-defineProps(['category', 'rating', 'title', 'price', 'location', 'photo', 'slug'])
+defineProps(['category', 'rating', 'title', 'price', 'location', 'photo', 'slug', 'location'])
 </script>
 
 <template lang="pug">
@@ -8,7 +8,7 @@ defineProps(['category', 'rating', 'title', 'price', 'location', 'photo', 'slug'
 		.photo
 			DashDestWrapper(:photo="photo")
 			.category {{ category[0].name }}
-			.rating.d-flex.align-items-center
+			//- .rating.d-flex.align-items-center
 				Icon(name="material-symbols:kid-star-sharp" color='white')
 				.num 5.0
 	.details
@@ -16,7 +16,7 @@ defineProps(['category', 'rating', 'title', 'price', 'location', 'photo', 'slug'
 			NuxtLink(:to="`/dashboard/destinations/${slug}`")
 				.title {{ title }}
 			.price.ms-auto ${{ price }}
-		.location Accra, Ghana
+		.location {{ location || 'Accra, Ghana' }}
 </template>
 
 <style lang="scss">

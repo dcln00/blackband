@@ -8,7 +8,7 @@ section#destinations.container
 		Loading
 	div(v-else-if="searchPending") Pending
 	div(v-else)
-		DashDestination(v-for="item in data" :key="item.title" :title="item.title" :price="item.acfDestinations.price" :category="item.destinationCategories.nodes" :photo="item.featuredImage.node.sourceUrl" :slug="item.slug")
+		DashDestination(v-for="item in data" :key="item.title" :title="item.title" :price="item.acfDestinations.price" :category="item.destinationCategories.nodes" :photo="item.featuredImage.node.sourceUrl" :slug="item.slug" :location="item.acfDestinations.location")
 </template>
 
 <style lang="scss" scoped>

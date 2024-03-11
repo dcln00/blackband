@@ -4,7 +4,7 @@ const supabase = useSupabaseClient()
 const user = useSupabaseUser()
 
 useHead({
-	titleTemplate: `Bookings - %s`
+	titleTemplate: `Bookings - %s` 
 })
 
 const { data, error } = await supabase

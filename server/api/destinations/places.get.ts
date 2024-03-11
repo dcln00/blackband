@@ -36,6 +36,7 @@ export default defineEventHandler(async (event) => {
 					}
 					acfDestinations {
 					  price
+					  location
 					}
 					id
 					uri

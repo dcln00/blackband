@@ -21,7 +21,9 @@ const { data, error, pending, refresh } = await useFetch(query.value, {
 <template lang="pug">
 section#articles.container
 	UiHeading(title="Featured Travel Articles")
-	ErrorBound(v-if="error" message="Cannot Load Featured Articles")
 	.row
-		LazyArticle(v-for="item in data" :title="item.title" :description="trimExcerpt(item.excerpt)" :url="item.uri" :photo="item.featuredImage.node.sourceUrl")
+		NuxtErrorBoundary
+			template(#error="{ error }")
+				ErrorBound(:message="`Cannot Load Featured Articles ${error}`")
+			LazyArticle(v-for="item in data" :title="item.title" :description="trimExcerpt(item.excerpt)" :url="item.uri" :photo="item.featuredImage.node.sourceUrl")
 </template>

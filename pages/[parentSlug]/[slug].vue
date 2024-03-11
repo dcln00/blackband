@@ -64,20 +64,23 @@ useHead({
 
 definePageMeta({
 	validate: async ({ params }) => {
+
 		const parentSlug = [
 			'featured',
 			'blackband',
 			'destinations',
-			'ba',
+			'services',
 			'packages',
 		]
 		const validateFind = parentSlug.find((x) => x === params.parentSlug)
+
 		if (!validateFind) {
 			return createError({
 				statusCode: 404,
 				message: 'Page Not Found',
 			})
 		}
+
 		return true
 	},
 })
@@ -93,8 +96,8 @@ section#pages.container-fluid.px-0
 	Content(:data="destination" v-if="destination")
 </template>
 
-<style>
+<style lang="scss" scoped>
 #pages {
-	padding-bottom: 2rem;
+	padding-bottom: 1rem;
 }
 </style>

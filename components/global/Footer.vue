@@ -2,6 +2,7 @@
 let show = ref(false);
 let selected = ref(null)
 defineProps(['isOpen', 'closeNav'])
+const store = useAppNavigation()
 
 function handleShow(id: number) {
 	show.value = !show.value;
@@ -39,7 +40,7 @@ footer.container-fluid.px-0
 			.col-md-6.logo-name
 				.logo 
 					NuxtImg(src="/logo.png" width="50" height="50")
-				.name Blackband
+				.name BlackBand
 			FooterLinks(v-if="$device.isDesktop")
 			div(v-else)
 				UiAccordion(v-for="item in accordion" :title="item.title" :handle-show="() => handleShow(item.id)" :show="show" :key="item.title" :selected="selected" :id="item.id")
@@ -48,14 +49,10 @@ footer.container-fluid.px-0
 		.sub-footer 
 			.sub-links
 				ul.d-flex(:class="$device.isMobile ? 'flex-column' : ''")
-					NuxtLink(href='#')
-						li Cookie Policy 
-					NuxtLink(href='#')
-						li Privacy Policy 
-					li Terms of Use 
-					li Terms and Conditions
+					NuxtLink(v-for="item in store.navigation.	footer" :key="item.title" :to="item.url")
+						li(@click="closeNav") {{ item.title }}
 			
 			.credits 
-				.copyright © 2024 Blackband
-				.powered Powered by The Base Agency
+				.copyright {{ store.navigation.subfooter.copyright }}
+				.powered {{ store.navigation.subfooter.credits }}
 </template>

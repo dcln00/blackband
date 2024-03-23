@@ -8,13 +8,23 @@ const showModal = () => {
 }
 
 // VALIDATE COMPONENTS
-const pages = computed(() => route.path === '/privacy-policy' || route.path === '/terms' ? true : false)
+const pages = computed(() =>
+	route.path === '/privacy-policy' || route.path === '/terms' ? true : false
+)
 
-const featuredPosts = computed(() => route.params.parentSlug === 'featured' ? true : false)
+const featuredPosts = computed(() =>
+	route.params.parentSlug === 'featured' ? true : false
+)
 
-const parentPages = computed(() => route.params.parentSlug !== 'destinations' ? true : false)
+const parentPages = computed(() =>
+	route.params.parentSlug !== 'destinations' ? true : false
+)
 
-const blackbandClub = computed(() => route.path === '/blackband-club' ? true : false)
+const blackbandTrio = computed(() =>
+	route.path === '/blackband-club' || route.path === '/the-blackband-card'
+		? true
+		: false
+)
 </script>
 
 <template lang="pug">
@@ -25,19 +35,27 @@ div
 
 		ContentBody(v-if="data" :title="data?.title")
 			div(v-html="data?.content")
+
+		Newsletter
 	
 	//- BLACKBAND SERVICES PAGES
-	div(v-else-if="blackbandClub")
+	div(v-else-if="blackbandTrio")
 		ContentBody(v-if="data" :title="data?.title" :title-style="{paddingTop: '2rem'}")
-				div(v-html="data?.content")
+			div(v-html="data?.content")
+
+		div(v-if="$route.path === '/blackband-club'")
+			Cta(button="Become a Member" photo="https://images.unsplash.com/photo-1620511450270-47162b983078?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")
+
+		div(v-if="$route.path === '/the-blackband-card'")
+			Cta(button="Get a blackband Card" photo="bbandcard.png")
+
 
 	//- PAGES WITHOUT HERO
 	div(v-else-if="pages")
 		ContentBody(v-if="data" :title="data?.title" :title-style="{paddingTop: '2rem'}")
 			div(v-html="data?.content")
 
-
-	//- PAGES W PARENT
+	//- PAGES W & WO PARENT
 	div(v-else-if="parentPages")
 		Teleport(to="body")
 			DashModal(:is-open="isOpen" :close-modal="showModal")
@@ -48,9 +66,16 @@ div
 
 		ContentBody(v-if="data" :title="data?.title")
 			div(v-html="data?.content")
-	
-			.blackband-buttons(v-if="$route.params.slug === 'business-travel'" @click="showModal")
-				button book now
+
+			div(v-if="$route.params.slug === 'business-travel'" )
+				TravelTabs(:data="data?.travelSettings?.travelExperiences?.tabs" @show-modal="showModal")
+				RelatedArticles
+
+			div(v-if="$route.params.slug === 'leisure-experience'" )
+				TravelTabs(:data="data?.leisureSettings?.leisureExperiences?.tabs" @show-modal="showModal")
+				RelatedArticles
+
+			Vendors(v-if="$route.params.slug === 'blackband-vendors' && data?.vendorsSettings?.showVendors")
 
 	//- DESTINATION PAGE
 	div(v-else)
@@ -78,6 +103,10 @@ div
 			.title Summary
 			.description(v-html="data?.content")
 		
+		section#dest-content.container(v-if="data?.acfDestinations?.availability.from")
+			.title Availability
+			.description(v-html="$dayjs(data?.acfDestinations?.availability?.from).format('MMMM DD, YYYY') + ' - ' + $dayjs(data?.acfDestinations?.availability?.to).format('MMMM DD, YYYY')")
+
 		section#dest-content.container(v-if="data?.acfDestinations?.cancellation")
 			.title Cancellation
 			.description(v-html="data?.acfDestinations?.cancellation")
@@ -116,7 +145,6 @@ div
 	width: 100%;
 	text-align: center;
 }
-
 
 #destination-hero {
 	padding-bottom: a.$padding;

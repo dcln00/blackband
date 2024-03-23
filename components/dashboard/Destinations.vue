@@ -14,6 +14,6 @@ section#destinations.container
 <style lang="scss" scoped>
 section#destinations {
 	padding-top: a.$padding;
-	padding-bottom: 7rem;
+	padding-bottom: 5rem;
 }
 </style>

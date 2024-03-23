@@ -61,8 +61,8 @@ definePageMeta({
 
 <template lang="pug">
 section#signup.container-fluid.px-0
+	Hero(photo="/signup.jpg")
 	.container
-		Hero(photo="/signup.jpg")
 		UiHeading(title="Create an account" align="center" show-description description="Allow us to help tailor your journey and discover a world of culture.")
 		AuthForm(:auth="signup", :user="user")
 </template>

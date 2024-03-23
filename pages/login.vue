@@ -63,8 +63,8 @@ definePageMeta({
 
 <template lang="pug">
 section#login.container-fluid.px-0
+	Hero(photo="/login.jpg")
 	.container
-		Hero(photo="/login.jpg")
 		UiHeading(title="Login" align="center" show-description description="Already registered? Log in here.")
 		AuthForm(:auth="login" :user="user" :disabled="disabled")
 		ErrorBound(v-if='error' message="Wrong Username or Password")

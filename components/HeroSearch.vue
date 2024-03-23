@@ -18,11 +18,9 @@ const handleClose = () => {
 	filters.trip = ''
 	filters.location = ''
 	isOpen.value = !isOpen.value
-
 }
 
 const updateSearch = () => {
-	const url = useRequestURL()
 	url.searchParams.set('query', searchQuery.value)
 	if(filters.trip) url.searchParams.set('&trip', filters.trip)
 	if(filters.location) url.searchParams.set('&location', filters.location)
@@ -68,7 +66,7 @@ div
 					input(v-model='searchQuery' @input="updateSearch" type='text' aria-label='Amount (to the nearest dollar)' placeholder='Destination')
 					span.input-group-text(@click="showModal")
 						Icon(name="flowbite:adjustments-horizontal-solid" size="1.2em")
-				.filters.d-flex.justify-content-around.align-items-center
+				//- .filters.d-flex.justify-content-around.align-items-center
 					.box.d-flex.flex-column.align-items-center(v-for="item in filtersCat" key="item.label")
 						Icon(:name="item.icon" size="1.5em")
 						.label {{ item.label }}
@@ -80,7 +78,7 @@ div
 	padding-bottom: a.$padding;
 
 	.nested {
-		padding: 4rem;
+		padding: 8rem 0;
 		padding-left: 2rem;
 		padding-right: 2rem;
 		// background-color: a.color(black);

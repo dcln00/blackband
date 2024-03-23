@@ -1,10 +1,12 @@
 <script setup lang="ts">
 defineProps(['category', 'rating', 'title', 'price', 'location', 'photo', 'slug', 'location'])
+
+const user = useSupabaseUser()
 </script>
 
 <template lang="pug">
 .destination
-	NuxtLink(:to="`/dashboard/destinations/${slug}`")
+	NuxtLink(:to="user ? `/dashboard/destinations/${slug}` : `/destinations/${slug}`")
 		.photo
 			DashDestWrapper(:photo="photo")
 			.category {{ category[0].name }}
@@ -13,7 +15,7 @@ defineProps(['category', 'rating', 'title', 'price', 'location', 'photo', 'slug'
 				.num 5.0
 	.details
 		.box.d-flex.align-items-center
-			NuxtLink(:to="`/dashboard/destinations/${slug}`")
+			NuxtLink(:to="user ? `/dashboard/destinations/${slug}` : `/destinations/${slug}`")
 				.title {{ title }}
 			.price.ms-auto ${{ price }}
 		.location {{ location || 'Accra, Ghana' }}

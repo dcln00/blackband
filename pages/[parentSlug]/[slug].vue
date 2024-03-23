@@ -71,6 +71,8 @@ definePageMeta({
 			'destinations',
 			'services',
 			'packages',
+			'articles',
+			'article',
 		]
 		const validateFind = parentSlug.find((x) => x === params.parentSlug)
 
@@ -88,12 +90,11 @@ definePageMeta({
 
 <template lang="pug">
 section#pages.container-fluid.px-0
-	.container
-		div(v-if="postPending && pagePending && destPending")
-			Loading
-		Content(:data="page" v-if="page")
-		Content(:data="posts" v-else-if="posts")
-	Content(:data="destination" v-if="destination")
+	div(v-if="postPending && pagePending && destPending")
+		Loading
+	Content(:data="page" v-if="page")
+	Content(:data="posts" v-else-if="posts")
+	Content(:data="destination" v-else-if="destination")
 </template>
 
 <style lang="scss" scoped>

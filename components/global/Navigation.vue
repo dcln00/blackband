@@ -39,7 +39,7 @@ div
 						ErrorBound(:message="`Cannot Load Menu ${error}`")
 
 					UiAccordion(v-for="item in accordion" :title="item.title" :handle-show="() => handleShow(item.key)" :show="show" :key="item.title" :selected="selected" :id="item.key")
-						NuxtLink(v-for="item in item.children" :to="`${item?.url}`")
+						NuxtLink(v-for="item in item.children" :to="`${item?.url}`" replace)
 							li(@click="closeNav") {{ item.title }}
 			hr
 			.navigation-cards

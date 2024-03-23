@@ -32,17 +32,33 @@ export default defineNuxtConfig({
 		'~/components/global',
 		'~/components',
 	],
-	modules: ['@nuxtjs/device', '@nuxt/image', 'nuxt-icon', 'dayjs-nuxt', '@nuxtjs/supabase', 'nuxt-primevue', '@pinia/nuxt', 'nuxt-swiper', '@vueuse/nuxt', '@nuxtjs/algolia', 'nuxt-mail',],
+	modules: [
+		'@nuxtjs/device',
+		'@nuxt/image',
+		'nuxt-icon',
+		'dayjs-nuxt',
+		'@nuxtjs/supabase',
+		'nuxt-primevue',
+		'@pinia/nuxt',
+		'nuxt-swiper',
+		'@vueuse/nuxt',
+		'@nuxtjs/algolia',
+		'nuxt-mail',
+	],
 	supabase: {
 		redirect: false,
 	},
 	mail: {
 		message: {
-		  to: 'noreply@blackband.co',
+			to: 'concierge@blackband.co',
 		},
 		smtp: {
-		  host: "mail.blackband.co",
-		  port: 465,
+			host: 'smtp.office365.com',
+			port: 587,
+			auth: {
+				user: 'concierge@blackband.co',
+				pass: '@bband2050'
+			}
 		},
 	},
 	runtimeConfig: {

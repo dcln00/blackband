@@ -51,6 +51,5 @@ definePageMeta({
 
 <template lang="pug">
 section#pages.container-fluid.px-0
-	.container
-		Content(:data="data")
+	Content(:data="data")
 </template>

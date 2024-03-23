@@ -1,8 +1,30 @@
 <script setup lang="ts">
 const query = useRoute().query
 const nuxtApp = useNuxtApp()
+const url = useRequestURL()
+const isOpen = ref(false)
 
-console.log(query)
+const filters = reactive({
+	trip: '',
+	location: '',
+})
+
+const showModal = () => {
+	isOpen.value = !isOpen.value
+	updateSearch()
+}
+
+const handleClose = () => {
+	filters.trip = ''
+	filters.location = ''
+	isOpen.value = !isOpen.value
+}
+
+function updateSearch() {
+	if (filters.trip) url.searchParams.set('&trip', filters.trip)
+	if (filters.location) url.searchParams.set('&location', filters.location)
+	window.history.pushState({}, '', url.toString())
+}
 
 const search = computed(
 	() =>
@@ -11,18 +33,24 @@ const search = computed(
 		}${query.location ? `&location=${query.location}` : ''}`
 )
 
-const { data: list, error } = await useFetch(search, {
-	key: 'searchList',
-})
+const { data: list, error } = await useFetch(search)
 
-console.log(list.value)
+useHead({
+	titleTemplate: `Search - %s`,
+})
 </script>
 
 <template lang="pug">
 div
-	section#search-title.container 
-		.title(v-if="list.length") Showing results for '{{ query.query }}'
-		.title(v-else) No results for '{{ query.query }}'
+	Teleport(to="body")
+		DashModal(:is-open="isOpen" :close-modal="showModal")
+			UiSearchFilters(@close-modal="handleClose" @save-filter="showModal" :filters="filters")
+	section#search-header
+		DashSearch(@show-modal="showModal" :filters="filters" :update-search="updateSearch" )
+		.container.pt-4
+			.title(v-if="!Object.keys(query).length") Search Destinations
+			.title(v-else-if="list.length") Showing results for '{{ query.query }}'
+			.title(v-else) No results for '{{ query.query }}'
 
 	section#search-list.container
 		.destination(v-for="item in list" :key="item.title")
@@ -42,7 +70,11 @@ div
 </template>
 
 <style lang="scss" scoped>
-section#search-list {
+#search-header {
+	padding-top: a.$padding;
+}
+
+#search-list {
 	padding-top: a.$padding;
 	padding-bottom: 2.5rem;
 

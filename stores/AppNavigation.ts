@@ -22,7 +22,7 @@ export const useAppNavigation = defineStore('nav', {
 			secondary: [
 				{
 					title: 'Account',
-					url: '/dashboard',
+					url: '/dashboard/account',
 				},
 				{
 					title: 'About',
@@ -37,12 +37,12 @@ export const useAppNavigation = defineStore('nav', {
 				{
 					title: 'twitter',
 					name: 'fa6-brands:x-twitter',
-					url: '/'
+					url: 'https://www.x.com/blkbnd/'
 				},
 				{
 					title: 'instagram',
 					name: 'bi:instagram',
-					url: '/'
+					url: 'https://www.instagram.com/blkbnd/'
 				}
 			],
 			footer: [
@@ -57,7 +57,7 @@ export const useAppNavigation = defineStore('nav', {
 			],
 			subfooter: {
 				copyright: `©${getYear()} BlackBand`,
-				credits: 'Powered by The Base Agency'
+				credits: 'Powered by The Base Network'
 			}
 		}
 	})

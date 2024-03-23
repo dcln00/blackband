@@ -5,11 +5,11 @@ const user = useSupabaseUser()
 
 const handleError = () => {
 
-	if(user.value) {
+	if(user) {
 		clearError({ redirect: '/dashboard' })
+	} else {
+		clearError({redirect: '/'})
 	}
-
-	clearError({redirect: '/'})
 }
 
 useHead({
@@ -21,7 +21,6 @@ useHead({
 div
 	NuxtLayout
 		section#error.container-fluid.px-0
-			.container
-				Hero
-				UiHeading(:title="error.statusMessage || 'Page Not Found'" align="center" show-description :description="`we’re unable to locate the page you are looking for`" show-button button-text="home" :click="handleError")
+			Hero
+			UiHeading(:title="error.statusMessage || 'Page Not Found'" align="center" show-description :description="`we’re unable to locate the page you are looking for`" show-button button-text="home" :click="handleError")
 </template>

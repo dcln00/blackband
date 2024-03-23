@@ -10,6 +10,7 @@ const mobileNav = [
 		path: '/dashboard/destinations',
 		icon: 'material-symbols:location-on-outline-rounded',
 	},
+	/* 
 	{
 		name: 'Home',
 		path: '/dashboard',
@@ -20,6 +21,7 @@ const mobileNav = [
 		path: '/dashboard/reviews',
 		icon: 'akar-icons:chat-bubble',
 	},
+	*/
 	{
 		name: 'Profile',
 		path: '/dashboard/account',
@@ -31,7 +33,7 @@ const mobileNav = [
 <template lang="pug">
 #nav.container-fluid.px-0.d-flex.justify-content-around.align-items-center.mobile
 	div(v-for="item in mobileNav" :key="item.name")
-		NuxtLink(:to='item.path' exactActiveClass='active-dash-link')
+		NuxtLink(:to='item.path' activeClass='active-dash-link')
 			.nav-links.d-flex.align-items-center.flex-column
 				Icon(:name="item.icon" size='1.2em')
 				p {{ item.name }}

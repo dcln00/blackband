@@ -32,3 +32,29 @@ section#destinations.container-fluid.px-0
 				PhotoWrapper(:photo='item.featuredImage.node.sourceUrl')
 				UiHeading(:title="item.title" :description="trimExcerpt(item.content, 20)" align='left' :url="`/destinations/${item.slug}`"  show-button buttonText="view" show-description)
 </template>
+
+<style lang="scss" scoped>
+#destinations {
+	padding-bottom: a.$padding;
+
+	.slider {
+		aspect-ratio: 1;
+		position: relative;
+		overflow: hidden;
+	
+		.heading {
+			position: absolute;
+			width: 80%;
+			bottom: 2.2rem;
+			left: 2rem;
+			color: a.color(white);
+	
+			:deep(button) {
+				@include a.button;
+				color: a.color(white);
+				border-bottom: 1px solid a.color(white);
+			}
+		}
+	}
+}
+</style>

@@ -1,20 +1,12 @@
-import { Agent } from 'undici'
-import crypto from 'node:crypto'
-
 export default defineEventHandler(async (event) => {
 	const config = useRuntimeConfig()
+	const {articles} = getQuery(event)
 
 	const article = await $fetch(config.public.apiBaseUrl, {
-		dispatcher: new Agent({
-			connect: {
-				rejectUnauthorized: false,
-				secureOptions: crypto.constants.SSL_OP_LEGACY_SERVER_CONNECT,
-			},
-		}),
 		query: {
 			query: `
 			query getPosts {
-				posts(first:3, where: {categoryName: "featured"}){
+				posts(first:3, where: {categoryName: "${articles || 'featured'}"}){
 				  nodes {
 					title
 					excerpt

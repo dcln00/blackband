@@ -13,21 +13,43 @@ section#content-body.container
 .text {
 	text-align: justify;
 
+	blockquote {
+		position: relative;
+		text-align: start;
+		font-size: 1.2rem;
+		font-weight: 200;
+		padding-left: 2rem;
+		padding-right: 2rem;
+		overflow: visible;
+
+		&:before {
+			content: open-quote;
+			position: absolute;
+			top: -70px;
+			left: 3px;
+			color: rgb(233, 233, 233);
+			font-size: 11rem;
+			z-index: -1;
+		}
+	}
+
 	figure {
 		margin: 1.5rem 0;
 		width: 100%;
-		overflow: hidden;
 
 		img {
-		width: 100%;
-		height: 100%;
-		object-fit: contain;
-	}
+			width: 100%;
+			height: 100%;
+			object-fit: contain;
+		}
 	}
 
-	
-
-	h1, h2, h3, h4, h5, h6 {
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
 		@include a.title;
 		letter-spacing: 0;
 		font-size: a.$twelve;

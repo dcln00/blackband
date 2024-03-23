@@ -3,7 +3,7 @@ defineProps(["photo", "title", "category", "date"]);
 </script>
 
 <template lang="pug">
-section#jumbo
+section#jumbo.container
 	.nested.d-flex.justify-content-center.align-items-center
 		div
 			PhotoWrapper(:photo="photo")
@@ -14,7 +14,7 @@ section#jumbo
 				.date {{ $dayjs(date).format('MMMM DD YYYY') }}
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 #jumbo {
 	padding-top: calc(a.$padding / 2);
 	padding-bottom: a.$padding;

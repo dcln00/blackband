@@ -13,11 +13,9 @@ const handleSubmit = () => {
 		if (!input.name || !input.email || !input.subject || !input.message) return
 
 		mail.send({
-			from: input.email,
+			from:  `${input.name} <${input.email}>`,
 			subject: input.subject,
-			text: `from ${input.name}
-
-${input.message}`,
+			text: `${input.message}`,
 		})
 
 		alert('mail sent!')
@@ -53,6 +51,7 @@ section#contact.container
 <style lang="scss" scoped>
 #contact {
 	padding-top: a.$padding;
+	padding-bottom: a.$padding;
 
 	.contact-form {
 		input,

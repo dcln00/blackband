@@ -53,6 +53,10 @@ div
 		.title Summary
 		.description(v-html="data?.content")
 	
+	section#dest-content.container(v-if="data?.acfDestinations?.availability.from")
+		.title Availability
+		.description(v-html="$dayjs(data?.acfDestinations?.availability?.from).format('MMMM DD, YYYY') + ' - ' + $dayjs(data?.acfDestinations?.availability?.to).format('MMMM DD, YYYY')")
+	
 	section#dest-content.container(v-if="data?.acfDestinations?.cancellation")
 		.title Cancellation
 		.description(v-html="data?.acfDestinations?.cancellation")

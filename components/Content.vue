@@ -1,10 +1,24 @@
 <script lang="ts" setup>
+import FsLightbox from "fslightbox-vue/v3"
+const user = useSupabaseUser()
 const props = defineProps(['data'])
 const isOpen = ref(false)
-const user = useSupabaseUser()
+const toggler = ref(false)
+const slide = ref(1)
 const route = useRoute()
 const showModal = () => {
 	isOpen.value = !isOpen.value
+}
+
+function openCustom(number: number) {
+	slide.value = number
+	toggler.value = !toggler.value
+}
+
+function images() {
+
+	const images = props.data.value?.acfDestinations?.gallery?.nodes.map(x => x.sourceUrl)
+	return images
 }
 
 // VALIDATE COMPONENTS
@@ -115,6 +129,21 @@ div
 			.title Additional Info
 			.description(v-html="data?.acfDestinations?.additionalInfo")
 
+		ClientOnly
+			FsLightbox(
+				:sources="data?.acfDestinations?.gallery?.nodes.map(x => x.sourceUrl)"
+				:toggler="toggler"
+				type="image"
+				:slide="slide"
+			)
+
+		section#dest-content.container(v-if="data?.acfDestinations?.gallery?.nodes.length")
+			.title Gallery
+			.row 
+				.col-3.g-3(v-for="(item, ind) in data?.acfDestinations?.gallery?.nodes" :key="ind")
+					.image(@click="openCustom(ind + 1)")
+						NuxtImg(:src="item.sourceUrl")
+
 		.spacer
 
 		section#book-bar.container-fluid.px-0
@@ -197,6 +226,16 @@ div
 
 	.description {
 		padding-bottom: 0;
+	}
+
+	.image {
+		aspect-ratio: 1;
+
+		img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+		}
 	}
 }
 

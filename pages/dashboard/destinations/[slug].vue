@@ -23,7 +23,7 @@ const { data, error, pending } = await useFetch(url.value, {
 	},
 })
 
-function openCustom(number) {
+function openCustom(number: number) {
 	slide.value = number
 	toggler.value = !toggler.value
 }

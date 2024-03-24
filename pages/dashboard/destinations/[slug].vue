@@ -1,9 +1,10 @@
 <script setup lang="ts">
-const {
-	params: { slug },
-} = useRoute()
+import FsLightbox from "fslightbox-vue/v3"
+const { params: { slug } } = useRoute()
 const nuxtApp = useNuxtApp()
 const isOpen = ref(false)
+const toggler = ref(false)
+const slide = ref(1)
 
 const url = computed(() => `/api/destinations/${slug}`)
 
@@ -19,8 +20,19 @@ const { data, error, pending } = await useFetch(url.value, {
 		}
 
 		return null
-	}
+	},
 })
+
+function openCustom(number) {
+	slide.value = number
+	toggler.value = !toggler.value
+}
+
+function images() {
+
+	const images = data.value?.acfDestinations?.gallery?.nodes.map(x => x.sourceUrl)
+	return images
+}
 
 const showModal = () => {
 	isOpen.value = !isOpen.value
@@ -64,6 +76,21 @@ div
 	section#dest-content.container(v-if="data?.acfDestinations?.additionalInfo")
 		.title Additional Info
 		.description(v-html="data?.acfDestinations?.additionalInfo")
+
+	ClientOnly
+		FsLightbox(
+			:sources="images()"
+			:toggler="toggler"
+			type="image"
+			:slide="slide"
+		)
+
+	section#dest-content.container(v-if="data?.acfDestinations?.gallery?.nodes.length")
+		.title Gallery
+		.row 
+			.col-3.g-3(v-for="(item, ind) in data?.acfDestinations?.gallery?.nodes" :key="ind")
+				.image(@click="openCustom(ind + 1)")
+					NuxtImg(:src="item.sourceUrl")
 
 	.spacer
 
@@ -157,6 +184,16 @@ div
 
 	.description {
 		padding-bottom: 0;
+	}
+
+	.image {
+		aspect-ratio: 1;
+
+		img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+		}
 	}
 }
 

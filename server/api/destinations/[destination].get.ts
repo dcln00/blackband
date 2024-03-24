@@ -13,6 +13,11 @@ export default defineEventHandler(async (event) => {
 						cancellation
 						location
 						price
+						gallery {
+							nodes {
+							 sourceUrl
+							}
+						}
 					  }
 				  content
 				  author {

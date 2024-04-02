@@ -170,6 +170,7 @@ div
 			padding-bottom: 10rem;
 			border-radius: 0;
 			height: 100vh;
+			overflow: hidden;
 
 			.home-form {
 				background-color: #ffffff50;

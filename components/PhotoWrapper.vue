@@ -15,7 +15,7 @@ defineProps({
 .photo-wrapper(v-if="media")
 	NuxtImg(:src="photo")
 .video-wrapper(v-else)
-	video(autoplay, muted, loop)
+	video(playsinline, autoplay, muted, loop)
 		source(src="/hero.mp4" type="video/mp4")
 </template>
 

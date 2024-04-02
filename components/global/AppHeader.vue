@@ -9,7 +9,6 @@ const dropRef = ref(null)
 const query = computed(() => `/api/menu`)
 
 onClickOutside(dropRef, event => {
-		console.log(event)
 		isShowing.value = false
 		selected.value = null
 })

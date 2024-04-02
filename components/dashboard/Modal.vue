@@ -30,9 +30,9 @@ div
 	position: fixed;
 	top: 50%;
 	left: 50%;
-	margin-left: -50%;
-	margin-top: -50%;
-	// transform: translate(-50%, -50%);
+	// margin-left: -50%;
+	// margin-top: -50%;
+	transform: translate(-50%, -50%);
 	z-index: 30;
 
 	.nested {
@@ -49,6 +49,17 @@ div
 			position: absolute;
 			right: 1rem;
 			top: 1rem;
+		}
+	}
+}
+
+@media screen and (min-width: a.$breakpoint-mt) {
+	#modal {
+		pointer-events: none;
+		.nested {
+			width: 50%;
+			margin: 0 auto;
+			pointer-events: all;
 		}
 	}
 }

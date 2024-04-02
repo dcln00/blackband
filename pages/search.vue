@@ -46,27 +46,31 @@ div
 		DashModal(:is-open="isOpen" :close-modal="showModal")
 			UiSearchFilters(@close-modal="handleClose" @save-filter="showModal" :filters="filters")
 	section#search-header
-		DashSearch(@show-modal="showModal" :filters="filters" :update-search="updateSearch" )
+		DashSearch(@show-modal="showModal" :filters="filters" :update-search="updateSearch" v-if="$device.isMobile")
+		SearchBar(v-else)
 		.container.pt-4
 			.title(v-if="!Object.keys(query).length") Search Destinations
 			.title(v-else-if="list.length") Showing results for '{{ query.query }}'
 			.title(v-else) No results for '{{ query.query }}'
+			.desc(v-if="$device.isDesktop") showing {{ `${list.length} ${!list.length ? 'result' : 'results'}` }}
 
 	section#search-list.container
-		.destination(v-for="item in list" :key="item.title")
-			NuxtLink(:to="`/destinations/${item.slug}`")
-				.photo
-					DashDestWrapper(:photo="item.featuredImage.node.sourceUrl")
-					.category {{ item.destinationCategories.nodes[0].name }}
-					//- .rating.d-flex.align-items-center
-						Icon(name="material-symbols:kid-star-sharp" color='white')
-						.num 5.0
-			.details
-				.box.d-flex.align-items-center
+		.row 
+			.col-sm-4(v-for="item in list" :key="item.title")
+				.destination
 					NuxtLink(:to="`/destinations/${item.slug}`")
-						.title {{ item.title }}
-					.price.ms-auto ${{ item.acfDestinations.price }}
-				.location {{ item.acfDestinations.location || 'Accra, Ghana' }}
+						.photo
+							DashDestWrapper(:photo="item.featuredImage.node.sourceUrl")
+							.category {{ item.destinationCategories.nodes[0].name }}
+							//- .rating.d-flex.align-items-center
+								Icon(name="material-symbols:kid-star-sharp" color='white')
+								.num 5.0
+					.details
+						.box.d-flex.align-items-center
+							NuxtLink(:to="`/destinations/${item.slug}`")
+								.title {{ item.title }}
+							.price.ms-auto ${{ item.acfDestinations.price }}
+						.location {{ item.acfDestinations.location || 'Accra, Ghana' }}
 </template>
 
 <style lang="scss" scoped>
@@ -133,6 +137,16 @@ div
 			.location {
 				color: rgb(105, 105, 105);
 			}
+		}
+	}
+}
+
+@media screen and (min-width: a.$breakpoint-mt) {
+	#search-header {
+		padding-top: 0;
+
+		.container {
+			padding-top: 4rem !important;
 		}
 	}
 }

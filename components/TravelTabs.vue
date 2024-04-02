@@ -53,4 +53,19 @@ section#travel-tabs
 		border: none;
 	}
 }
+
+@media screen and (min-width: a.$breakpoint-mt) {
+	#travel-tabs {
+	padding-top: 5rem;
+	padding-bottom: 5rem;
+	}
+
+	:deep(.p-tabview-panel) {
+		font-size: 1rem;
+	}
+
+	:deep(.p-tabview-header) {
+		font-size: 1rem;
+	}
+}
 </style>

@@ -27,17 +27,18 @@ section#vendors
 	UiHeading(title="view all vendors" align='left')
 	Swiper(
 		:modules="[SwiperAutoplay, SwiperPagination]"
-		:slides-per-view="1"
+		:slides-per-view="$device.isMobile ? 1 : 2"
 		:space-between="25"
 		:autoplay="{delay: 3000, disableOnInteraction: true}"
 		:pagination="{enabled: true}"
 	)
 		SwiperSlide(v-for="item in vendors" :key="item.title")
-			.slider 
-				PhotoWrapper(:photo='item.featuredImage.node.sourceUrl')
-				.details
-					.title {{ item.title }}
-					.description(v-html="item.content")
+			NuxtLink(:to="item.vendorsInfo.link" target="_blank")
+				.slider 
+					PhotoWrapper(:photo='item.featuredImage.node.sourceUrl')
+					.details
+						.title {{ item.title }}
+						.description(v-html="item.content")
 		
 </template>
 
@@ -74,10 +75,24 @@ section#vendors
 			transform: translate(-50%, 0);
 			color: a.color(white);
 
-			.title {
+			.title, .description {
 				text-align: center;
+
+				p {
+					margin-bottom: 0 !important;
+				}
+
+				a {
+					color: a.color(white);
+				}
 			}
 		}
+	}
+}
+
+@media screen and (min-width: a.$breakpoint-mt) {
+	#vendors {
+		padding-top: 5rem;
 	}
 }
 </style>

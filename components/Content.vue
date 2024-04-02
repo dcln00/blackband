@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import FsLightbox from "fslightbox-vue/v3"
+import FsLightbox from 'fslightbox-vue/v3'
 const user = useSupabaseUser()
 const props = defineProps(['data'])
 const isOpen = ref(false)
@@ -16,8 +16,9 @@ function openCustom(number: number) {
 }
 
 function images() {
-
-	const images = props.data.value?.acfDestinations?.gallery?.nodes.map(x => x.sourceUrl)
+	const images = props.data.value?.acfDestinations?.gallery?.nodes.map(
+		(x) => x.sourceUrl
+	)
 	return images
 }
 
@@ -48,7 +49,11 @@ div
 		FeaturedJumbo(:photo="data?.featuredImage?.node?.sourceUrl" :title="data?.title" :category="data?.categories?.nodes" :date="data?.date")
 
 		ContentBody(v-if="data" :title="data?.title")
-			div(v-html="data?.content")
+			.row
+				.col-sm-2
+				.col-sm-8
+					div(v-html="data?.content")
+				.col-sm-2
 
 		Newsletter
 	
@@ -69,17 +74,24 @@ div
 		ContentBody(v-if="data" :title="data?.title" :title-style="{paddingTop: '2rem'}")
 			div(v-html="data?.content")
 
-	//- PAGES W & WO PARENT
+	//- PAGES W & WO PARENT (article, experiences)
 	div(v-else-if="parentPages")
 		Teleport(to="body")
 			DashModal(:is-open="isOpen" :close-modal="showModal")
 				.title Book travel services
 				UiBusinessTravelForm(:showModal="showModal")
 
-		Hero(:photo="data?.featuredImage?.node?.sourceUrl")
+		Hero(:photo="data?.featuredImage?.node?.sourceUrl" :title="data?.title")
 
-		ContentBody(v-if="data" :title="data?.title")
-			div(v-html="data?.content")
+		ContentBody(v-if="data" :title="$device.isMobile ? data?.title : ''")
+
+			.row(v-if="$route.params.parentSlug ==='article'")
+				.col-sm-2
+				.col-sm-8
+					div(v-html="data?.content")
+				.col-sm-2
+
+			div(v-html="data?.content" v-else)
 
 			div(v-if="$route.params.slug === 'business-travel'" )
 				TravelTabs(:data="data?.travelSettings?.travelExperiences?.tabs" @show-modal="showModal")
@@ -102,7 +114,7 @@ div
 				DashBookingForm(:price="data?.acfDestinations?.price" :close-modal="showModal" :data="data" v-else)
 		section#destination-hero.container-fluid.px-0
 			.photo
-				.back(@click="$router.go(-1)")
+				.back(@click="$router.go(-1)" v-if="$device.isMobile")
 					Icon(name="ph:caret-circle-left-fill" color="white" size="2em")
 				DashDestWrapper(:photo="data?.featuredImage?.node?.sourceUrl")
 		section#dest-heading.container 
@@ -113,40 +125,54 @@ div
 				.bullet •
 				.location {{ data?.acfDestinations?.location || 'Accra, Ghana' }}
 
-		section#dest-content.container(v-if="data?.content")
-			.title Summary
-			.description(v-html="data?.content")
+		.container
+			.row
+				.col-sm-8
+					section#dest-content(v-if="data?.content")
+						.title Summary
+						.description(v-html="data?.content")
+					
+					section#dest-content(v-if="data?.acfDestinations?.availability.from")
+						.title Availability
+						.description(v-html="$dayjs(data?.acfDestinations?.availability?.from).format('MMMM DD, YYYY') + ' - ' + $dayjs(data?.acfDestinations?.availability?.to).format('MMMM DD, YYYY')")
+
+					section#dest-content(v-if="data?.acfDestinations?.cancellation")
+						.title Cancellation
+						.description(v-html="data?.acfDestinations?.cancellation")
+
+					section#dest-content(v-if="data?.acfDestinations?.additionalInfo")
+						.title Additional Info
+						.description(v-html="data?.acfDestinations?.additionalInfo")
+
+					ClientOnly
+						FsLightbox(
+							:sources="data?.acfDestinations?.gallery?.nodes.map(x => x.sourceUrl)"
+							:toggler="toggler"
+							type="image"
+							:slide="slide"
+						)
+
+					section#dest-content(v-if="data?.acfDestinations?.gallery?.nodes.length")
+						.title Gallery
+						.row 
+							.col-3.g-3(v-for="(item, ind) in data?.acfDestinations?.gallery?.nodes" :key="ind")
+								.image(@click="openCustom(ind + 1)")
+									.view
+										Icon(name="ph:eye" size="2rem" color="white")
+									NuxtImg(:src="item.sourceUrl")
+
+					.spacer
+
+				.col-sm-4(v-if="$device.isDesktop")
+					section#dest-price
+						.nested
+							.box.d-flex
+								.price {{ `$${data?.acfDestinations?.price}` }}
+								.person.ms-auto Per Person
+							button(@click="showModal") Book
+							button.back(@click="$router.go(-1)") Go back
 		
-		section#dest-content.container(v-if="data?.acfDestinations?.availability.from")
-			.title Availability
-			.description(v-html="$dayjs(data?.acfDestinations?.availability?.from).format('MMMM DD, YYYY') + ' - ' + $dayjs(data?.acfDestinations?.availability?.to).format('MMMM DD, YYYY')")
-
-		section#dest-content.container(v-if="data?.acfDestinations?.cancellation")
-			.title Cancellation
-			.description(v-html="data?.acfDestinations?.cancellation")
-
-		section#dest-content.container(v-if="data?.acfDestinations?.additionalInfo")
-			.title Additional Info
-			.description(v-html="data?.acfDestinations?.additionalInfo")
-
-		ClientOnly
-			FsLightbox(
-				:sources="data?.acfDestinations?.gallery?.nodes.map(x => x.sourceUrl)"
-				:toggler="toggler"
-				type="image"
-				:slide="slide"
-			)
-
-		section#dest-content.container(v-if="data?.acfDestinations?.gallery?.nodes.length")
-			.title Gallery
-			.row 
-				.col-3.g-3(v-for="(item, ind) in data?.acfDestinations?.gallery?.nodes" :key="ind")
-					.image(@click="openCustom(ind + 1)")
-						NuxtImg(:src="item.sourceUrl")
-
-		.spacer
-
-		section#book-bar.container-fluid.px-0
+		section#book-bar.container-fluid.px-0(v-if="$device.isMobile")
 			.nested.container.d-flex
 				.box
 					.price {{ `$${data?.acfDestinations?.price}` }}
@@ -230,12 +256,66 @@ div
 
 	.image {
 		aspect-ratio: 1;
+		position: relative;
+		cursor: pointer;
+
+		.view {
+			position: absolute;
+			z-index: 2;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, 0%);
+			transition: 0.5s;
+			opacity: 0;
+		}
+
+		&:hover > .view {
+			opacity: 1;
+			transform: translate(-50%, -50%);
+			pointer-events: none;
+		}
 
 		img {
 			width: 100%;
 			height: 100%;
 			object-fit: cover;
 		}
+	}
+}
+
+#dest-price {
+	position: sticky;
+	top: 129.783px;
+	margin-bottom: 6rem;
+	margin-top: a.$padding;
+	padding: a.$padding;
+	padding-bottom: a.$padding;
+	background-color: #f5f5f5;
+
+	.box {
+		padding-bottom: 1rem;
+		.price,
+		.person {
+			font-size: 1rem;
+			text-transform: uppercase;
+			font-weight: 700;
+		}
+	}
+
+	button {
+		@include a.button;
+		width: 100%;
+		border: 1px solid black;
+		background-color: a.color(black);
+		color: a.color(white);
+		border-radius: a.$border-radius;
+		padding: 0.8rem 2rem;
+	}
+
+	button.back {
+		margin-top: 1rem;
+		background-color: transparent;
+		color: a.color(black)
 	}
 }
 
@@ -269,6 +349,15 @@ div
 			color: a.color(white);
 			border-radius: a.$border-radius;
 			padding: 0.8rem 2rem;
+		}
+	}
+}
+
+@media screen and (min-width: a.$breakpoint-mt) {
+	#destination-hero {
+		.photo {
+			aspect-ratio: auto;
+			height: 75vh;
 		}
 	}
 }

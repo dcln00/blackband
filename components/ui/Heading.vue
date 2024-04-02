@@ -24,3 +24,11 @@ defineProps({
 	url: String
 })
 </script>
+
+<style scoped lang="scss">
+@media screen and (min-width: a.$breakpoint-mt) {
+	.title {
+		font-size: 1rem;
+	}
+}
+</style>

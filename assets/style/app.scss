@@ -5,8 +5,7 @@
 @use 'pages/error';
 // components
 @use 'components/header';
-@use 'components/footer';
-@use 'components/photowrapper';
 @use 'components/accordion';
 @use 'components/articles';
 // desktop
+@use 'base/mq';

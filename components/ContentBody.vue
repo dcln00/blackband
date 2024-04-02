@@ -61,4 +61,30 @@ section#content-body.container
 		line-height: 20px;
 	}
 }
+
+@media screen and (min-width: a.$breakpoint-mt) {
+	#content-body {
+		padding-top: calc(a.$padding-full / 2);
+		padding-bottom: calc(a.$padding-full / 2);
+	}
+	.title {
+		font-size: 1rem;
+	}
+
+	.text {
+		font-size: 1rem;
+
+		p {
+			line-height: 25px;
+
+			img {
+				display: block;
+				margin: 0 auto;
+				margin-top: 4rem;
+				object-fit: contain;
+				object-position: center center;
+			}
+		}
+	}
+}
 </style>

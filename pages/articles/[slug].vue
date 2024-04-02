@@ -26,7 +26,7 @@ useHead({
 
 <template lang="pug">
 div
-	.container(:style="{paddingTop: '2.5rem'}")
+	.container(:style="{paddingTop: '2.5rem'}" v-if="$device.isMobile")
 		UiHeading(:title="`all about ${slug}`" align="center")
 		div.pt-5
 			article(v-for="item in data" :key="item?.title")
@@ -37,6 +37,22 @@ div
 				.description(v-html="trimExcerpt(item?.excerpt)")
 				NuxtLink(:to='`/article${item?.uri}`')
 					button Read More
+	.container-fluid.px-0(v-else)
+		.article-heading
+			UiHeading(:title="`all about ${slug}`" align="center")
+		.container
+			article(v-for="item in data" :key="item?.title")
+				.row
+					.col-5
+						NuxtLink(:to='`/article${item?.uri}`')
+							.photo
+								NuxtImg(:src="item?.featuredImage?.node?.sourceUrl")
+					.col-7
+						NuxtLink(:to='`/article${item?.uri}`')
+							.title {{ item?.title }}
+						.description(v-html="trimExcerpt(item?.excerpt)")
+						NuxtLink(:to='`/article${item?.uri}`')
+							button Read More
 </template>
 
 <style lang="scss" scoped>
@@ -65,6 +81,27 @@ article {
 
 	button {
 		@include a.button;
+	}
+}
+
+@media screen and (min-width: a.$breakpoint-mt) {
+	.container-fluid {
+
+		.article-heading {
+			background-color: #222222;
+			padding: {
+				top: 4rem;
+				bottom: 3rem;
+			}
+
+			:deep(.title) {
+				color: a.color(white);
+			}
+		}
+	}
+
+	.container {
+		margin-top: 129.783px;
 	}
 }
 </style>

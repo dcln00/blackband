@@ -24,3 +24,17 @@ section#articles.container
 	.row
 		LazyArticle(v-for="item in data" :title="item.title" :description="trimExcerpt(item.excerpt)" :url="item.uri" :photo="item.featuredImage.node.sourceUrl")
 </template>
+
+<style scoped lang="scss">
+@media screen and (min-width: a.$breakpoint-mt) {
+	#articles {
+		:deep(.heading) {
+			.title {
+				font-size: 1rem;
+				padding-bottom: 3rem;
+				text-align: center;
+			}
+		}
+	}
+}
+</style>

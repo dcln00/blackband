@@ -25,7 +25,7 @@ section#related
 	UiHeading(title="Related Articles")
 	Swiper(
 		:modules="[SwiperAutoplay, SwiperPagination]"
-		:slides-per-view="1"
+		:slides-per-view="$device.isMobile ? 1 : 3"
 		:space-between="25"
 		:autoplay="{delay: 3000, disableOnInteraction: true}"
 		:pagination="{enabled: true}"
@@ -88,6 +88,12 @@ section#related
 		display: block;
 		margin: 0 auto;
 		padding-top: 0;
+	}
+}
+
+@media screen and (min-width: a.$breakpoint-mt) {
+	.title {
+		font-size: 1rem;
 	}
 }
 </style>

@@ -13,7 +13,7 @@ const handleSubmit = () => {
 		if (!input.name || !input.email || !input.subject || !input.message) return
 
 		mail.send({
-			from:  `${input.name} <${input.email}>`,
+			from: `${input.name} <${input.email}>`,
 			subject: input.subject,
 			text: `${input.message}`,
 		})
@@ -32,20 +32,23 @@ const handleSubmit = () => {
 
 <template lang="pug">
 section#contact.container
-	UiHeading(title="Contact us" show-description :description="`Thank you for your interest in BlackBand. <br><br> We are continuously striving to improve the BlackBand experience, and feedback is always appreciated. Please let us know if you had any problems, or have any thoughts or suggestions you'd like to share with the team. Thanks.`" align="center")
-	.contact-form.container 
-		form(@submit.prevent="handleSubmit")
-			.row 
-				.col-6
-					input(type="text" v-model="input.name" placeholder="Name")
-				.col-6
-					input(type="email" v-model.trim="input.email" placeholder="Email")
-				.col-12
-					input(type="text" v-model="input.subject" placeholder="Subject")
-				.col-12
-					textarea(placeholder="Enter your message here" v-model="input.message")
-			.button
-				button(type="submit") Send Message
+	.row 
+		.col-sm-4 
+			UiHeading(title="Contact us" show-description :description="`Thank you for your interest in BlackBand. <br><br> We are continuously striving to improve the BlackBand experience, and feedback is always appreciated. Please let us know if you had any problems, or have any thoughts or suggestions you'd like to share with the team. Thanks.`" align="center")
+		.col-sm-8
+			.contact-form.container 
+				form(@submit.prevent="handleSubmit")
+					.row 
+						.col-6
+							input(type="text" v-model="input.name" placeholder="Name")
+						.col-6
+							input(type="email" v-model.trim="input.email" placeholder="Email")
+						.col-12
+							input(type="text" v-model="input.subject" placeholder="Subject")
+						.col-12
+							textarea(placeholder="Enter your message here" v-model="input.message")
+					.button
+						button(type="submit") Send Message
 </template>
 
 <style lang="scss" scoped>
@@ -75,6 +78,12 @@ section#contact.container
 		.button {
 			@include a.secondary-button;
 		}
+	}
+}
+
+@media screen and (min-width: a.$breakpoint-mt) {
+	#contact {
+		padding-top: 5rem;
 	}
 }
 </style>

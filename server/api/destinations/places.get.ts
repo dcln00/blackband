@@ -22,7 +22,7 @@ export default defineEventHandler(async (event) => {
 					slug
 					featuredImage {
 					  node {
-						sourceUrl(size: MEDIUM_LARGE)
+						sourceUrl
 					  }
 					}
 					acfDestinations {

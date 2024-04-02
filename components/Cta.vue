@@ -31,4 +31,13 @@ section#member-cta.container-fluid.px-0
 			}
 	}
 }
+
+@media screen and (min-width: a.$breakpoint-mt) {
+	#member-cta {
+		.nested {
+			aspect-ratio: auto;
+			height: 100vh;
+		}
+	}
+}
 </style>

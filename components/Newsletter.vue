@@ -21,7 +21,7 @@ const handleSubscribe = async () => {
 </script>
 
 <template lang="pug">
-section#newsletter.container 
+section#newsletter(:class="$device.isMobile ? 'container' : 'container-fluid px-0'")
 	.nested.d-flex.justify-content-center.align-items-center
 		div
 			PhotoWrapper(photo="/newsletter.jpg")
@@ -67,6 +67,19 @@ section#newsletter.container
 			font-weight: 300;
 			background-color: a.color(black);
 			color: a.color(white);
+		}
+	}
+}
+
+@media screen and (min-width: a.$breakpoint-mt) {
+	#newsletter {
+		padding-bottom: 0;
+		
+		.nested {
+			border-radius: 0;
+			aspect-ratio: auto;
+			padding-top: 10rem;
+			padding-bottom: 10rem;
 		}
 	}
 }

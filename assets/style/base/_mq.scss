@@ -1,0 +1,7 @@
+@use '../abstracts' as a;
+
+@media screen and (min-width: a.$breakpoint-mt) {
+	.title, .description {
+		font-size: 1rem;
+	}
+}

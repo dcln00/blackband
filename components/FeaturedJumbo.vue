@@ -3,7 +3,7 @@ defineProps(["photo", "title", "category", "date"]);
 </script>
 
 <template lang="pug">
-section#jumbo.container
+section#jumbo(:class="$device.isMobile ? 'container' : 'container-fluid px-0'")
 	.nested.d-flex.justify-content-center.align-items-center
 		div
 			PhotoWrapper(:photo="photo")
@@ -44,6 +44,26 @@ section#jumbo.container
 			.date {
 				font-size: a.$ten;
 				text-transform: uppercase;
+			}
+		}
+	}
+}
+
+@media screen and (min-width: a.$breakpoint-mt) {
+	#jumbo {
+		.nested {
+			aspect-ratio: auto;
+			height: 80vh;
+			border-radius: 0;
+
+			.details {
+				.category {
+					font-size: a.$ten;
+				}
+
+				.title {
+					font-size: 1.5rem;
+				}
 			}
 		}
 	}

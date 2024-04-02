@@ -29,6 +29,7 @@ const user = useSupabaseUser()
 		aspect-ratio: 16/8;
 		border-radius: a.$border-radius;
 		position: relative;
+		overflow: hidden;
 
 		.rating {
 			position: absolute;

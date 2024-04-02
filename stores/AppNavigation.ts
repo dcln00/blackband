@@ -37,12 +37,12 @@ export const useAppNavigation = defineStore('nav', {
 				{
 					title: 'twitter',
 					name: 'fa6-brands:x-twitter',
-					url: 'https://www.x.com/blkbnd/'
+					url: 'https://www.x.com/blackbandco/'
 				},
 				{
 					title: 'instagram',
 					name: 'bi:instagram',
-					url: 'https://www.instagram.com/blkbnd/'
+					url: 'https://www.instagram.com/blackbandco/'
 				}
 			],
 			footer: [

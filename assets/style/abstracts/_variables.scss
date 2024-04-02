@@ -4,7 +4,10 @@
 $body-font: "Outfit", sans-serif;
 
 // spacing
+$padding-full: 10rem;
 $padding: calc(5rem /2);
+$padding-half: calc(5rem /2);
+$padding-quart: calc($padding-half /1.4);
 // styling
 $border-radius: 5px;
 /// fonts

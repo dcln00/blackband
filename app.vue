@@ -6,10 +6,8 @@ useHead({
 </script>
 
 <template lang="pug">
-NuxtLayout(v-if="$device.isMobile")
+NuxtLayout
 	NuxtPage
-div(v-else)
-	h1 Coming soon on web
 </template>
 
 <style>

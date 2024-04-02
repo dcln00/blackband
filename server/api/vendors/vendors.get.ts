@@ -23,6 +23,9 @@ export default defineEventHandler(async (event) => {
 						sourceUrl(size: MEDIUM_LARGE)
 					  }
 					}
+					vendorsInfo {
+						link
+					}
 				  }
 				}
 			  }

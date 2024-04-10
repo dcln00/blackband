@@ -57,8 +57,8 @@ section#vendors
 }
 
 #vendors {
-	padding-top: calc(a.$padding / 2);
-	padding-bottom: a.$padding;
+	padding-top: a.$padding-half;
+	padding-bottom: a.$padding-half;
 
 	.slider {
 		border-radius: a.$border-radius;

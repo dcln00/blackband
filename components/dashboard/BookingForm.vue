@@ -2,6 +2,7 @@
 import { useBookings } from '../../stores/Bookings'
 const props = defineProps(['price', 'closeModal', 'data'])
 const supabase = useSupabaseClient()
+// const mail = useMail()
 const store = useBookings()
 const dates = ref()
 const guestCount = ref(0)
@@ -36,12 +37,30 @@ async function handleSubmit() {
 		price: props.price,
 		name: props.data?.title,
 		photo: props.data?.featuredImage?.node?.sourceUrl,
-		location: props.data?.acfDestinations?.location || 'Accra, Ghana',
+		location: props.data?.acfExperiences?.location || 'Accra, Ghana',
 		checkin_date: dates.value[0],
 		checkout_date: dates.value[1],
 		guest_count: guestCount.value,
 		notes: `user '${user.value?.email}' added a new booking`
 	})
+
+// 	mail.send({
+// 			message: {
+// 				to: `${user.value?.email}`,
+// 			},
+// 			from: `concierge@blackband.co`,
+// 			subject: `You have added a new booking <${props.data?.title}>`,
+// 			text: `
+// Details of your booking:
+
+// Name: ${props.data?.title}
+// Checkin Date: ${dates.value[0]}
+// Checkout Date: ${dates.value[1]}
+// Number of Guests: ${guestCount.value}
+
+// For any questions about your booking, contact support@blackband.co
+// `,
+// 		})
 
 	if(error) {
 		console.log(error)
@@ -50,7 +69,7 @@ async function handleSubmit() {
 
 	props.closeModal()
 
-	navigateTo('/dashboard/bookings')
+	await navigateTo('/dashboard/bookings')
 }
 </script>
 

@@ -14,24 +14,50 @@ const { data, error, pending, refresh } = await useFetch(query.value, {
 		}
 
 		return null
-	}
+	},
 })
 </script>
 
 <template lang="pug">
 section#articles.container
-	UiHeading(title="Featured Travel Articles")
+	UiHeading(title="Featured Blackband Articles")
 	.row
-		LazyArticle(v-for="item in data" :title="item.title" :description="trimExcerpt(item.excerpt)" :url="item.uri" :photo="item.featuredImage.node.sourceUrl")
+		LazyArticle(v-for="item in data" :title="item.title" :description="trimExcerpt(item.excerpt, 25)" :url="item.uri" :photo="item.featuredImage.node.sourceUrl")
 </template>
 
 <style scoped lang="scss">
+#articles {
+	padding-bottom: 1rem;
+
+	:deep(article) {
+		padding-bottom: a.$padding;
+
+		.photo {
+			aspect-ratio: 16/9;
+			background-color: a.color(black);
+			border-radius: a.$border-radius;
+			margin-bottom: 1rem;
+		}
+
+		.title {
+			padding-bottom: 0.7rem;
+		}
+
+		.description {
+			padding-bottom: 0.9rem;
+		}
+
+		button {
+			@include a.button;
+		}
+	}
+}
+
 @media screen and (min-width: a.$breakpoint-mt) {
 	#articles {
 		:deep(.heading) {
 			.title {
 				font-size: 1rem;
-				padding-bottom: 3rem;
 				text-align: center;
 			}
 		}

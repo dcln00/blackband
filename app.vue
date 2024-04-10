@@ -1,6 +1,6 @@
 <script setup lang="ts">
 useHead({
-	title: `Blackband - Connecting people to cultural experiences in Africa`,
+	title: `Blackband - Explore Africa With Greater Confidence`,
 	meta: [{ name: "description", content: "Blackband" }],
 });
 </script>

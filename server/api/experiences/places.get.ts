@@ -4,8 +4,8 @@ export default defineEventHandler(async (event) => {
 	const places = await $fetch(config.public.apiBaseUrl, {
 		query: {
 			query: `
-			query getDestinations {
-				destinations(first: 10) {
+			query getExperiences {
+				experiences(first: 10) {
 				  nodes {
 					content
 					author {
@@ -13,7 +13,7 @@ export default defineEventHandler(async (event) => {
 						name
 					  }
 					}
-					destinationCategories {
+					experienceCategories {
 						nodes {
 						  name
 						}
@@ -25,7 +25,7 @@ export default defineEventHandler(async (event) => {
 						sourceUrl
 					  }
 					}
-					acfDestinations {
+					acfExperiences {
 					  price
 					  location
 					}
@@ -44,5 +44,5 @@ export default defineEventHandler(async (event) => {
 		})
 	}
 
-	return places.data.destinations.nodes
+	return places.data.experiences.nodes
 })

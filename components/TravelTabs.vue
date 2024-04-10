@@ -18,14 +18,14 @@ section#travel-tabs
 				button {{ item.button.title }}
 
 			.blackband-buttons(v-if="index === 1")
-				NuxtLink(href="/destinations")
+				NuxtLink(href="/experiences")
 					button {{ item.button.title }}
 </template>
 
 <style lang="scss" scoped>
 #travel-tabs {
-	padding-top: a.$padding;
-	padding-bottom: a.$padding;
+	padding-top: a.$padding-half;
+	padding-bottom: a.$padding-half;
 }
 
 :deep(.p-tabview-panel) {

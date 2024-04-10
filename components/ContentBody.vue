@@ -64,8 +64,8 @@ section#content-body.container
 
 @media screen and (min-width: a.$breakpoint-mt) {
 	#content-body {
-		padding-top: calc(a.$padding-full / 2);
-		padding-bottom: calc(a.$padding-full / 2);
+		padding-top: a.$padding-half;
+		padding-bottom: a.$padding-half;
 	}
 	.title {
 		font-size: 1rem;

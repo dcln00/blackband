@@ -57,8 +57,8 @@ section#related
 }
 
 #related {
-	padding-top: calc(a.$padding / 2);
-	padding-bottom: a.$padding;
+	padding-top: a.$padding-half;
+	padding-bottom: a.$padding-half;
 
 	.photo {
 		border-radius: a.$border-radius;

@@ -17,7 +17,7 @@ section#dash-title.container.d-flex.align-items-center(:style="{paddingTop: padd
 <style lang="scss">
 #dash-title {
 	padding-top: 3rem;
-	padding-bottom: a.$padding;
+	padding-bottom: a.$padding-half;
 
 	.title {
 		font-size: 1rem;

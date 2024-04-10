@@ -57,7 +57,7 @@ div
 
 <style lang="scss" scoped>
 article {
-	padding-bottom: a.$padding;
+	padding-bottom: a.$padding-half;
 
 	.photo {
 		aspect-ratio: 16/9;

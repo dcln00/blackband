@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const props = defineProps(['showModal'])
-const mail = useMail()
+// const mail = useMail()
 
 const input = reactive({
 	name: '',
@@ -15,15 +15,15 @@ const handleSubmit = () => {
 	try {
 		if (!input.name || !input.email || !input.number || !input.subject || !input.message) return
 
-		mail.send({
-			from: input.email,
-			subject: input.subject,
-			text: `from ${input.name}
+// 		mail.send({
+// 			from: input.email,
+// 			subject: input.subject,
+// 			text: `from ${input.name}
 
-Telephone number: ${input.number} || Company: ${input.company}
+// Telephone number: ${input.number} || Company: ${input.company}
 
-${input.message}`,
-		})
+// ${input.message}`,
+// 		})
 		
 		alert('mail sent!')
 

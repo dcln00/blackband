@@ -58,14 +58,16 @@ const handleSubmit = async () => {
 							type="text"
 							v-model="searchQuery"
 							@input="updateSearch"
-							placeholder="Search Destination"
-							aria-label="Search Destination"
+							placeholder="Book Experiences"
+							aria-label="Book Experiences"
 							aria-describedby="input-group-left"
 							autoComplete="on"
 							)
 				.col-sm-2
 					select.form-select(aria-label='Default select' v-model="filters.trip" @change="updateSearch")
-						option(selected disabled value='') Type of Trip
+						option(selected disabled value='') Type
+						option Blackband Apartments
+						option Blackband Cars
 						option Business
 						option Private
 						option Group

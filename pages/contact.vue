@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const mail = useMail()
+// const mail = useMail()
 
 const input = reactive({
 	name: '',
@@ -8,16 +8,20 @@ const input = reactive({
 	message: '',
 })
 
-const handleSubmit = () => {
+const handleSubmit = async () => {
 	try {
 		if (!input.name || !input.email || !input.subject || !input.message) return
 
-		mail.send({
-			from: `${input.name} <${input.email}>`,
-			subject: input.subject,
-			text: `${input.message}`,
+		const { data: resData } = await useFetch('/api/mail/contact', {
+			method: 'post',
+			body: {
+				from: `${input.name} <${input.email}>`,
+				subject: input.subject,
+				text: `${input.message}`,
+			},
 		})
 
+		console.log(resData.value?.message)
 		alert('mail sent!')
 	} catch (e) {
 		console.log(e)
@@ -53,7 +57,7 @@ section#contact.container
 
 <style lang="scss" scoped>
 #contact {
-	padding-top: a.$padding;
+	padding-top: a.$padding-half;
 	padding-bottom: a.$padding;
 
 	.contact-form {

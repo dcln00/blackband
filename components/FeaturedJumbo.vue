@@ -16,8 +16,8 @@ section#jumbo(:class="$device.isMobile ? 'container' : 'container-fluid px-0'")
 
 <style lang="scss" scoped>
 #jumbo {
-	padding-top: calc(a.$padding / 2);
-	padding-bottom: a.$padding;
+	padding-top: a.$padding-quart;
+	padding-bottom: a.$padding-half;
 
 	.nested {
 		border-radius: a.$border-radius;

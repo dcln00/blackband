@@ -6,7 +6,7 @@ watch(user, () => {
   if (user.value) {
 		if(route.redirectTo) return navigateTo(`${route.redirectTo}`)
 
-		return navigateTo('dashboard/destinations')
+		return navigateTo('dashboard/experiences')
   }
 }, { immediate: true })
 

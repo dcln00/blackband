@@ -27,11 +27,11 @@ function updateSearch() {
 }
 
 
-const query = computed(() => `/api/destinations/places`)
+const query = computed(() => `/api/experiences/places`)
 
 
 const { data: places, pending, error } = await useLazyFetch(query.value, {
-	key: 'destinationList',
+	key: 'experienceList',
 	getCachedData: (key) => {
 		if (!nuxtApp.isHydrating && nuxtApp.payload.data[key]) {
 			return nuxtApp.payload.data[key]
@@ -46,7 +46,7 @@ const { data: places, pending, error } = await useLazyFetch(query.value, {
 })
 
 useHead({
-	titleTemplate: `Destinations - %s`,
+	titleTemplate: `Experiences - %s`,
 })
 </script>
 
@@ -55,7 +55,7 @@ div
 	Teleport(to="body")
 		DashModal(:is-open="isOpen" :close-modal="showModal")
 			UiSearchFilters(@close-modal="handleClose" @save-filter="showModal" :filters="filters")
-	DashTitle(title="destinations")
+	DashTitle(title="experiences")
 	DashSearch(@show-modal="showModal" :filters="filters" :update-search="updateSearch" )
 	DashDestinations(:data="places" :pending="pending")
 </template>

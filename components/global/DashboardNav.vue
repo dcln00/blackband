@@ -6,8 +6,8 @@ const mobileNav = [
 		icon: 'solar:calendar-outline',
 	},
 	{
-		name: 'Trips',
-		path: '/dashboard/destinations',
+		name: 'Experiences',
+		path: '/dashboard/experiences',
 		icon: 'material-symbols:location-on-outline-rounded',
 	},
 	/* 

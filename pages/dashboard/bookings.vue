@@ -20,7 +20,7 @@ div
 		ErrorBound(message="You currently have no bookings")
 	section#bookings.container
 		.booking.d-flex(v-for="item in data.reverse()" :key="item.price")
-			.photo.d-flex.align-items-center.justify-content-center
+			.photo
 				Icon(v-if="!item.photo" name="material-symbols:broken-image-outline")
 				NuxtImg(v-else :src="item.photo")
 			.details
@@ -41,6 +41,7 @@ div
 			border-radius: a.$border-radius;
 			width: 65px;
 			height: 65px;
+			aspect-ratio: 1;
 			background-color: #ededed;
 			overflow: hidden;
 
@@ -52,6 +53,7 @@ div
 		}
 
 		.details {
+			width: 70%;
 
 			.title {
 				padding-bottom: .5rem;

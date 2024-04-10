@@ -28,7 +28,7 @@ function updateSearch() {
 
 const search = computed(
 	() =>
-		`/api/destinations/search?query=${query.query}${
+		`/api/experiences/search?query=${query.query}${
 			query.trip ? `&trip=${query.trip}` : ''
 		}${query.location ? `&location=${query.location}` : ''}`
 )
@@ -49,7 +49,7 @@ div
 		DashSearch(@show-modal="showModal" :filters="filters" :update-search="updateSearch" v-if="$device.isMobile")
 		SearchBar(v-else)
 		.container.pt-4
-			.title(v-if="!Object.keys(query).length") Search Destinations
+			.title(v-if="!Object.keys(query).length") Search Experiences
 			.title(v-else-if="list.length") Showing results for '{{ query.query }}'
 			.title(v-else) No results for '{{ query.query }}'
 			.desc(v-if="$device.isDesktop") showing {{ `${list.length} ${!list.length ? 'result' : 'results'}` }}
@@ -57,32 +57,32 @@ div
 	section#search-list.container
 		.row 
 			.col-sm-4(v-for="item in list" :key="item.title")
-				.destination
-					NuxtLink(:to="`/destinations/${item.slug}`")
+				.experience
+					NuxtLink(:to="`/experiences/${item.slug}`")
 						.photo
 							DashDestWrapper(:photo="item.featuredImage.node.sourceUrl")
-							.category {{ item.destinationCategories.nodes[0].name }}
+							.category {{ item.experienceCategories.nodes[0].name }}
 							//- .rating.d-flex.align-items-center
 								Icon(name="material-symbols:kid-star-sharp" color='white')
 								.num 5.0
 					.details
 						.box.d-flex.align-items-center
-							NuxtLink(:to="`/destinations/${item.slug}`")
+							NuxtLink(:to="`/experiences/${item.slug}`")
 								.title {{ item.title }}
-							.price.ms-auto ${{ item.acfDestinations.price }}
-						.location {{ item.acfDestinations.location || 'Accra, Ghana' }}
+							.price.ms-auto ${{ item.acfExperiences.price }}
+						.location {{ item.acfExperiences.location || 'Accra, Ghana' }}
 </template>
 
 <style lang="scss" scoped>
 #search-header {
-	padding-top: a.$padding;
+	padding-top: a.$padding-quart;
 }
 
 #search-list {
-	padding-top: a.$padding;
+	padding-top: a.$padding-quart;
 	padding-bottom: 2.5rem;
 
-	.destination {
+	.experience {
 		padding-bottom: 1.5rem;
 
 		.photo {

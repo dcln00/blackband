@@ -5,13 +5,13 @@ export default defineEventHandler(async (event) => {
 	const places = await $fetch(config.public.apiBaseUrl, {
 		query: {
 			query: `
-			query getDestinations {
-				destinations(
+			query getExperiences {
+				experiences(
 					first: 10,
 					where: {taxQuery: {relation: AND, 
 						taxArray: [
-							${trip ? `{taxonomy: DESTINATIONCATEGORY, field: SLUG, terms: "${trip}", operator: IN},` : ''}
-							${location ? `{taxonomy: DESTINATIONCOUNTRY, field: SLUG, terms: "${location}", operator: IN}` : ''}
+							${trip ? `{taxonomy: EXPERIENCECATEGORY, field: SLUG, terms: "${trip}", operator: IN},` : ''}
+							${location ? `{taxonomy: EXPERIENCECOUNTRY, field: SLUG, terms: "${location}", operator: IN}` : ''}
 						]
 					}, search:"${query}"}
 				) {
@@ -21,7 +21,7 @@ export default defineEventHandler(async (event) => {
 						name
 					  }
 					}
-					destinationCategories {
+					experienceCategories {
 						nodes {
 						  name
 						}
@@ -33,7 +33,7 @@ export default defineEventHandler(async (event) => {
 						sourceUrl(size: LARGE)
 					  }
 					}
-					acfDestinations {
+					acfExperiences {
 					  price
 					}
 					id
@@ -51,5 +51,5 @@ export default defineEventHandler(async (event) => {
 		})
 	}
 
-	return places.data.destinations.nodes
+	return places.data.experiences.nodes
 })

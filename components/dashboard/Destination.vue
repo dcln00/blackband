@@ -5,8 +5,8 @@ const user = useSupabaseUser()
 </script>
 
 <template lang="pug">
-.destination
-	NuxtLink(:to="user ? `/dashboard/destinations/${slug}` : `/destinations/${slug}`")
+.experience
+	NuxtLink(:to="user ? `/dashboard/experiences/${slug}` : `/experiences/${slug}`")
 		.photo
 			DashDestWrapper(:photo="photo")
 			.category {{ category[0].name }}
@@ -15,14 +15,14 @@ const user = useSupabaseUser()
 				.num 5.0
 	.details
 		.box.d-flex.align-items-center
-			NuxtLink(:to="user ? `/dashboard/destinations/${slug}` : `/destinations/${slug}`")
+			NuxtLink(:to="user ? `/dashboard/experiences/${slug}` : `/experiences/${slug}`")
 				.title {{ title }}
 			.price.ms-auto ${{ price }}
 		.location {{ location || 'Accra, Ghana' }}
 </template>
 
 <style lang="scss">
-.destination {
+.experience {
 	padding-bottom: 1.5rem;
 	.photo {
 		// background-color: pink;

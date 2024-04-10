@@ -1,15 +1,17 @@
 <script setup lang="ts">
-import FsLightbox from "fslightbox-vue/v3"
-const { params: { slug } } = useRoute()
+import FsLightbox from 'fslightbox-vue/v3'
+const {
+	params: { slug },
+} = useRoute()
 const nuxtApp = useNuxtApp()
 const isOpen = ref(false)
 const toggler = ref(false)
 const slide = ref(1)
 
-const url = computed(() => `/api/destinations/${slug}`)
+const url = computed(() => `/api/experiences/${slug}`)
 
 const { data, error, pending } = await useFetch(url.value, {
-	key: `destinations-${slug}`,
+	key: `experiences-${slug}`,
 	getCachedData: (key) => {
 		if (!nuxtApp.isHydrating && nuxtApp.payload.data[key]) {
 			return nuxtApp.payload.data[key]
@@ -29,8 +31,9 @@ function openCustom(number: number) {
 }
 
 function images() {
-
-	const images = data.value?.acfDestinations?.gallery?.nodes.map(x => x.sourceUrl)
+	const images = data.value?.acfExperiences?.gallery?.nodes.map(
+		(x) => x.sourceUrl
+	)
 	return images
 }
 
@@ -47,35 +50,35 @@ definePageMeta({
 div
 	Teleport(to="body")
 		DashModal(:is-open="isOpen" :close-modal="showModal")
-			DashBookingForm(:price="data?.acfDestinations?.price" :close-modal="showModal" :data="data")
-	section#destination-hero.container-fluid.px-0
+			DashBookingForm(:price="data?.acfExperiences?.price" :close-modal="showModal" :data="data")
+	section#experience-hero.container-fluid.px-0
 		.photo
-			.back(@click="navigateTo('/dashboard/destinations')")
+			.back(@click="navigateTo('/dashboard/experiences')")
 				Icon(name="ph:caret-circle-left-fill" color="white" size="2em")
 			DashDestWrapper(:photo="data?.featuredImage?.node?.sourceUrl")
-	section#dest-heading.container 
+	section#exp-heading.container 
 		.author {{ data?.author?.node?.name }}
 		.title {{ data?.title }}
 		.box.d-flex.justify-content-center.align-items-center
-			.category {{ data?.destinationCategories?.nodes[0].name }} 
+			.category {{ data?.experienceCategories?.nodes[0].name }} 
 			.bullet •
-			.location {{ data?.acfDestinations?.location || 'Accra, Ghana' }}
+			.location {{ data?.acfExperiences?.location || 'Accra, Ghana' }}
 
-	section#dest-content.container(v-if="data?.content")
+	section#exp-content.container(v-if="data?.content")
 		.title Summary
 		.description(v-html="data?.content")
 	
-	section#dest-content.container(v-if="data?.acfDestinations?.availability.from")
+	section#exp-content.container(v-if="data?.acfExperiences?.availability.from")
 		.title Availability
-		.description(v-html="$dayjs(data?.acfDestinations?.availability?.from).format('MMMM DD, YYYY') + ' - ' + $dayjs(data?.acfDestinations?.availability?.to).format('MMMM DD, YYYY')")
+		.description(v-html="$dayjs(data?.acfExperiences?.availability?.from).format('MMMM DD, YYYY') + ' - ' + $dayjs(data?.acfExperiences?.availability?.to).format('MMMM DD, YYYY')")
 	
-	section#dest-content.container(v-if="data?.acfDestinations?.cancellation")
+	section#exp-content.container(v-if="data?.acfExperiences?.cancellation")
 		.title Cancellation
-		.description(v-html="data?.acfDestinations?.cancellation")
+		.description(v-html="data?.acfExperiences?.cancellation")
 
-	section#dest-content.container(v-if="data?.acfDestinations?.additionalInfo")
+	section#exp-content.container(v-if="data?.acfExperiences?.additionalInfo")
 		.title Additional Info
-		.description(v-html="data?.acfDestinations?.additionalInfo")
+		.description(v-html="data?.acfExperiences?.additionalInfo")
 
 	ClientOnly
 		FsLightbox(
@@ -85,10 +88,10 @@ div
 			:slide="slide"
 		)
 
-	section#dest-content.container(v-if="data?.acfDestinations?.gallery?.nodes.length")
+	section#exp-content.container(v-if="data?.acfExperiences?.gallery?.nodes.length")
 		.title Gallery
 		.row 
-			.col-3.g-3(v-for="(item, ind) in data?.acfDestinations?.gallery?.nodes" :key="ind")
+			.col-3.g-3(v-for="(item, ind) in data?.acfExperiences?.gallery?.nodes" :key="ind")
 				.image(@click="openCustom(ind + 1)")
 					NuxtImg(:src="item.sourceUrl")
 
@@ -97,7 +100,7 @@ div
 	section#book-bar.container-fluid.px-0
 		.nested.container.d-flex
 			.box
-				.price {{ `$${data?.acfDestinations?.price}` }}
+				.price {{ `$${data?.acfExperiences?.price}` }}
 				.person Per Person
 			button.ms-auto(@click="showModal") Book
 </template>
@@ -133,8 +136,8 @@ div
 	}
 }
 
-#destination-hero {
-	padding-bottom: a.$padding;
+#experience-hero {
+	padding-bottom: a.$padding-half;
 	.photo {
 		aspect-ratio: 16/9;
 		position: relative;
@@ -149,8 +152,8 @@ div
 	}
 }
 
-#dest-heading {
-	padding-bottom: a.$padding;
+#exp-heading {
+	padding-bottom: a.$padding-half;
 	border-bottom: 1px solid #ededed;
 
 	.title {
@@ -177,9 +180,9 @@ div
 	}
 }
 
-#dest-content {
-	padding-top: a.$padding;
-	padding-bottom: a.$padding;
+#exp-content {
+	padding-top: a.$padding-half;
+	padding-bottom: a.$padding-half;
 	border-bottom: 1px solid #ededed;
 
 	.description {

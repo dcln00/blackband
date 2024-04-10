@@ -1,13 +1,18 @@
 @use 'type';
 
 //fonts
-$body-font: "Outfit", sans-serif;
+// $body-font: "Outfit", sans-serif;
+$body-font: "Jost", sans-serif;
 
 // spacing
 $padding-full: 10rem;
-$padding: calc(5rem /2);
-$padding-half: calc(5rem /2);
+
+$padding: 5rem;
+$padding-half: calc(5rem / 2);
 $padding-quart: calc($padding-half /1.4);
+
+$heading-padding: 1rem;
+
 // styling
 $border-radius: 5px;
 /// fonts

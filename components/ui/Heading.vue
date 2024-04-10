@@ -13,22 +13,26 @@ defineProps({
 	align: String,
 	showButton: {
 		type: Boolean,
-		default: false
+		default: false,
 	},
 	showDescription: {
 		type: Boolean,
-		default: false
+		default: false,
 	},
 	buttonText: String,
 	click: Function,
-	url: String
+	url: String,
 })
 </script>
 
 <style scoped lang="scss">
 @media screen and (min-width: a.$breakpoint-mt) {
-	.title {
-		font-size: 1rem;
+	.heading {
+		padding-bottom: a.$heading-padding;
+
+		.title {
+			font-size: 1rem;
+		}
 	}
 }
 </style>

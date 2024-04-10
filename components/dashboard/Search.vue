@@ -38,8 +38,8 @@ section#search.container
 					input.form-control(
 						type="text"
 						v-model="searchQuery"
-						placeholder="Search Destination"
-						aria-label="Search Destination"
+						placeholder="Book Experiences"
+						aria-label="Book Experiences"
 						aria-describedby="input-group-left"
 						autoComplete="on"
 						)

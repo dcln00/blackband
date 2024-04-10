@@ -10,8 +10,7 @@ export default defineNuxtConfig({
 				},
 				{
 					name: 'description',
-					content:
-						'Embark on an extraordinary journey with Black Band, where we redefine travel in Africa with unwavering confidence',
+					content: 'Explore Africa With Greater Confidence',
 				},
 			],
 		},
@@ -42,26 +41,15 @@ export default defineNuxtConfig({
 		'@pinia/nuxt',
 		'nuxt-swiper',
 		'@vueuse/nuxt',
-		'@nuxtjs/algolia',
-		'nuxt-mail',
 	],
 	supabase: {
 		redirect: false,
 	},
-	mail: {
-		message: {
-			to: 'concierge@blackband.co',
-		},
-		smtp: {
-			host: 'smtp.office365.com',
-			port: 587,
-			auth: {
-				user: 'concierge@blackband.co',
-				pass: '@bband2050'
-			}
-		},
-	},
+	
 	runtimeConfig: {
+		mailHost: '',
+		mailUser: '',
+		mailPass: '',
 		public: {
 			apiBaseUrl: process.env.API_BASE_URL,
 		},

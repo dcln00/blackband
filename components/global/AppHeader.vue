@@ -32,7 +32,7 @@ function dropdownClose() {
 const isScrolled = computed(() => y.value >= 0 && y.value < 120)
 
 const pages = computed(() =>
-	route.path === '/' || route.params.parentSlug === 'featured' || route.params.parentSlug === 'destinations' ? true : false
+	route.path === '/' || route.params.parentSlug === 'featured' || route.params.parentSlug === 'experiences' ? true : false
 )
 
 const { data, error } = await useFetch(query.value)
@@ -64,7 +64,7 @@ header
 						Transition(name='overlay')
 							AppDropdown(:show="isShowing" :selected="selected" :subnav="item.children" v-if="selected === item.key")
 			.button
-				NuxtLink(v-if="user" to='/dashboard/destinations' external)
+				NuxtLink(v-if="user" to='/dashboard/experiences' external)
 					button(:style="isScrolled && {backgroundColor: '#00000050', color: 'white'}") Dashboard
 				NuxtLink(to="/login" v-else)
 					button(:style="isScrolled && {backgroundColor: '#00000050', color: 'white'}") Login

@@ -16,7 +16,7 @@ export default defineEventHandler(async (event) => {
 				  }
 				  ${page === 'blackband-vendors' ? 'vendorsSettings { showVendors }' : ''}
 				  ${
-						page === 'business-travel'
+						page === 'business-experience'
 							? 'travelSettings { travelExperiences { tabs { title writeUp button{ title } } } }'
 							: ''
 					}
@@ -24,6 +24,11 @@ export default defineEventHandler(async (event) => {
 						page === 'leisure-experience'
 							? 'leisureSettings { leisureExperiences { tabs { title writeUp button{ title } } } }'
 							: ''
+					}
+					${
+						page === 'about'
+						? 'aboutSettings { team { member { name { title url } position } } workedWith { nodes { sourceUrl } } }'
+						: ''
 					}
 				}
 			  }`,

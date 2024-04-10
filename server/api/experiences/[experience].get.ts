@@ -1,13 +1,13 @@
 export default defineEventHandler(async (event) => {
-	const { destination } = getRouterParams(event)
+	const { experience } = getRouterParams(event)
 	const config = useRuntimeConfig()
 
 	const place = await $fetch(config.public.apiBaseUrl, {
 		query: {
 			query: `
-			query getDestination {
-				destination(id: "${destination}", idType: SLUG) {
-					acfDestinations {
+			query getExperience {
+				experience(id: "${experience}", idType: SLUG) {
+					acfExperiences {
 						additionalInfo
 						availability { from to }
 						cancellation
@@ -25,7 +25,7 @@ export default defineEventHandler(async (event) => {
 					  name
 					}
 				  }
-				  destinationCategories {
+				  experienceCategories {
 					nodes {
 					  name
 					}
@@ -50,5 +50,5 @@ export default defineEventHandler(async (event) => {
 		})
 	}
 
-	return place.data.destination
+	return place.data.experience
 })

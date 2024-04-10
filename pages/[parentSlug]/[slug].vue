@@ -4,7 +4,7 @@ const nuxtApp = useNuxtApp()
 
 const postUrl = computed(() => `/api/posts/${params.slug}`)
 const pageUrl = computed(() => `/api/page/${params.slug}`)
-const destUrl = computed(() => `/api/destinations/${params.slug}`)
+const expUrl = computed(() => `/api/experiences/${params.slug}`)
 
 const { data: posts, pending: postPending, error } = await useLazyFetch(postUrl.value, {
 	key: `featured-${params.slug}`,
@@ -36,8 +36,8 @@ const { data: page, pending: pagePending } = await useLazyFetch(pageUrl.value, {
 	},
 })
 
-const { data: destination, pending: destPending } = await useLazyFetch(destUrl.value, {
-	key: `destination-${params.slug}`,
+const { data: experience, pending: expPending } = await useLazyFetch(expUrl.value, {
+	key: `experience-${params.slug}`,
 	getCachedData: (key) => {
 		if (!nuxtApp.isHydrating && nuxtApp.payload.data[key]) {
 			return nuxtApp.payload.data[key]
@@ -68,7 +68,7 @@ definePageMeta({
 		const parentSlug = [
 			'featured',
 			'blackband',
-			'destinations',
+			'experiences',
 			'services',
 			'packages',
 			'articles',
@@ -90,11 +90,11 @@ definePageMeta({
 
 <template lang="pug">
 section#pages.container-fluid.px-0
-	div(v-if="postPending && pagePending && destPending")
+	div(v-if="postPending && pagePending && expPending")
 		Loading
 	Content(:data="page" v-if="page")
 	Content(:data="posts" v-else-if="posts")
-	Content(:data="destination" v-else-if="destination")
+	Content(:data="experience" v-else-if="experience")
 </template>
 
 <style lang="scss" scoped>

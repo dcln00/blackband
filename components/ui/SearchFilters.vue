@@ -9,7 +9,9 @@ form
 		.title Search filters
 		.col-12
 			select.form-select(aria-label='Default select' :style="{marginTop: '0'}" v-model="filters.trip")
-				option(selected disabled value='') Type of Trip
+				option(selected disabled value='') Type
+				option Blackband Apartments
+				option Blackband Cars
 				option Business
 				option Private
 				option Group

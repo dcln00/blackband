@@ -7,7 +7,7 @@ function toggleOpen() {
 }
 
 const pages = computed(() =>
-	route.path === '/' || route.path === '/login' || route.path === '/signup' || route.params.parentSlug === 'featured' || route.params.parentSlug === 'destinations' ? true : false
+	route.path === '/' || route.path === '/login' || route.path === '/signup' || route.params.parentSlug === 'featured' || route.params.parentSlug === 'experiences' ? true : false
 )
 </script>
 
@@ -20,7 +20,7 @@ div.body-outlet
 	.spacing(:style="{paddingTop: '129.783px'}" v-if="$device.isDesktop && !pages")
 	main
 		slot
-	Footer(v-if="$device.isMobile && !$route.path.includes('login') && !$route.path.includes('signup') && $route.params.parentSlug !== 'destinations'")
+	Footer(v-if="$device.isMobile && !$route.path.includes('login') && !$route.path.includes('signup') && $route.params.parentSlug !== 'experiences'")
 	AppFooter(v-else-if="!$route.path.includes('login') && !$route.path.includes('signup') && $device.isDesktop")
 </template>
 

@@ -16,7 +16,7 @@ function openCustom(number: number) {
 }
 
 function images() {
-	const images = props.data.value?.acfDestinations?.gallery?.nodes.map(
+	const images = props.data.value?.acfExperiences?.gallery?.nodes.map(
 		(x) => x.sourceUrl
 	)
 	return images
@@ -32,7 +32,7 @@ const featuredPosts = computed(() =>
 )
 
 const parentPages = computed(() =>
-	route.params.parentSlug !== 'destinations' ? true : false
+	route.params.parentSlug !== 'experiences' ? true : false
 )
 
 const blackbandTrio = computed(() =>
@@ -93,7 +93,11 @@ div
 
 			div(v-html="data?.content" v-else)
 
-			div(v-if="$route.params.slug === 'business-travel'" )
+			div(v-if="$route.params.slug === 'about'")
+				Team(:data="data?.aboutSettings")
+				Clients(:data="data?.aboutSettings")
+
+			div(v-if="$route.params.slug === 'business-experience'" )
 				TravelTabs(:data="data?.travelSettings?.travelExperiences?.tabs" @show-modal="showModal")
 				RelatedArticles
 
@@ -103,59 +107,59 @@ div
 
 			Vendors(v-if="$route.params.slug === 'blackband-vendors' && data?.vendorsSettings?.showVendors")
 
-	//- DESTINATION PAGE
+	//- EXPERIENCE PAGE
 	div(v-else)
 		Teleport(to="body")
 			DashModal(:is-open="isOpen" :close-modal="showModal")
 				div(v-if='!user')
 					.modal-message Login To book
-					NuxtLink(:href="`/login?redirectTo=/dashboard/destinations/${data?.slug}`")
+					NuxtLink(:href="`/login?redirectTo=/dashboard/experiences/${data?.slug}`")
 						button.book-button login
-				DashBookingForm(:price="data?.acfDestinations?.price" :close-modal="showModal" :data="data" v-else)
-		section#destination-hero.container-fluid.px-0
+				DashBookingForm(:price="data?.acfExperiences?.price" :close-modal="showModal" :data="data" v-else)
+		section#experience-hero.container-fluid.px-0
 			.photo
 				.back(@click="$router.go(-1)" v-if="$device.isMobile")
 					Icon(name="ph:caret-circle-left-fill" color="white" size="2em")
 				DashDestWrapper(:photo="data?.featuredImage?.node?.sourceUrl")
-		section#dest-heading.container 
+		section#exp-heading.container 
 			.author {{ data?.author?.node?.name }}
 			.title {{ data?.title }}
 			.box.d-flex.justify-content-center.align-items-center
-				.category {{ data?.destinationCategories?.nodes[0].name }} 
+				.category {{ data?.experienceCategories?.nodes[0].name }} 
 				.bullet •
-				.location {{ data?.acfDestinations?.location || 'Accra, Ghana' }}
+				.location {{ data?.acfExperiences?.location || 'Accra, Ghana' }}
 
 		.container
 			.row
 				.col-sm-8
-					section#dest-content(v-if="data?.content")
+					section#exp-content(v-if="data?.content")
 						.title Summary
 						.description(v-html="data?.content")
 					
-					section#dest-content(v-if="data?.acfDestinations?.availability.from")
+					section#exp-content(v-if="data?.acfExperiences?.availability.from")
 						.title Availability
-						.description(v-html="$dayjs(data?.acfDestinations?.availability?.from).format('MMMM DD, YYYY') + ' - ' + $dayjs(data?.acfDestinations?.availability?.to).format('MMMM DD, YYYY')")
+						.description(v-html="$dayjs(data?.acfExperiences?.availability?.from).format('MMMM DD, YYYY') + ' - ' + $dayjs(data?.acfExperiences?.availability?.to).format('MMMM DD, YYYY')")
 
-					section#dest-content(v-if="data?.acfDestinations?.cancellation")
+					section#exp-content(v-if="data?.acfExperiences?.cancellation")
 						.title Cancellation
-						.description(v-html="data?.acfDestinations?.cancellation")
+						.description(v-html="data?.acfExperiences?.cancellation")
 
-					section#dest-content(v-if="data?.acfDestinations?.additionalInfo")
+					section#exp-content(v-if="data?.acfExperiences?.additionalInfo")
 						.title Additional Info
-						.description(v-html="data?.acfDestinations?.additionalInfo")
+						.description(v-html="data?.acfExperiences?.additionalInfo")
 
 					ClientOnly
 						FsLightbox(
-							:sources="data?.acfDestinations?.gallery?.nodes.map(x => x.sourceUrl)"
+							:sources="data?.acfExperiences?.gallery?.nodes.map(x => x.sourceUrl)"
 							:toggler="toggler"
 							type="image"
 							:slide="slide"
 						)
 
-					section#dest-content(v-if="data?.acfDestinations?.gallery?.nodes.length")
+					section#exp-content(v-if="data?.acfExperiences?.gallery?.nodes.length")
 						.title Gallery
 						.row 
-							.col-3.g-3(v-for="(item, ind) in data?.acfDestinations?.gallery?.nodes" :key="ind")
+							.col-3.g-3(v-for="(item, ind) in data?.acfExperiences?.gallery?.nodes" :key="ind")
 								.image(@click="openCustom(ind + 1)")
 									.view
 										Icon(name="ph:eye" size="2rem" color="white")
@@ -164,10 +168,10 @@ div
 					.spacer
 
 				.col-sm-4(v-if="$device.isDesktop")
-					section#dest-price
+					section#exp-price
 						.nested
 							.box.d-flex
-								.price {{ `$${data?.acfDestinations?.price}` }}
+								.price {{ `$${data?.acfExperiences?.price}` }}
 								.person.ms-auto Per Person
 							button(@click="showModal") Book
 							button.back(@click="$router.go(-1)") Go back
@@ -175,7 +179,7 @@ div
 		section#book-bar.container-fluid.px-0(v-if="$device.isMobile")
 			.nested.container.d-flex
 				.box
-					.price {{ `$${data?.acfDestinations?.price}` }}
+					.price {{ `$${data?.acfExperiences?.price}` }}
 					.person Per Person
 				button.ms-auto(@click="showModal") Book
 </template>
@@ -201,8 +205,8 @@ div
 	text-align: center;
 }
 
-#destination-hero {
-	padding-bottom: a.$padding;
+#experience-hero {
+	padding-bottom: a.$padding-half;
 	.photo {
 		aspect-ratio: 16/9;
 		position: relative;
@@ -217,8 +221,8 @@ div
 	}
 }
 
-#dest-heading {
-	padding-bottom: a.$padding;
+#exp-heading {
+	padding-bottom: a.$padding-half;
 	border-bottom: 1px solid #ededed;
 
 	.title {
@@ -245,9 +249,9 @@ div
 	}
 }
 
-#dest-content {
-	padding-top: a.$padding;
-	padding-bottom: a.$padding;
+#exp-content {
+	padding-top: a.$padding-half;
+	padding-bottom: a.$padding-half;
 	border-bottom: 1px solid #ededed;
 
 	.description {
@@ -283,13 +287,13 @@ div
 	}
 }
 
-#dest-price {
+#exp-price {
 	position: sticky;
 	top: 129.783px;
 	margin-bottom: 6rem;
-	margin-top: a.$padding;
-	padding: a.$padding;
-	padding-bottom: a.$padding;
+	margin-top: a.$padding-half;
+	padding: a.$padding-half;
+	padding-bottom: a.$padding-half;
 	background-color: #f5f5f5;
 
 	.box {
@@ -315,7 +319,7 @@ div
 	button.back {
 		margin-top: 1rem;
 		background-color: transparent;
-		color: a.color(black)
+		color: a.color(black);
 	}
 }
 
@@ -354,7 +358,7 @@ div
 }
 
 @media screen and (min-width: a.$breakpoint-mt) {
-	#destination-hero {
+	#experience-hero {
 		.photo {
 			aspect-ratio: auto;
 			height: 75vh;

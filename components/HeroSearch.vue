@@ -37,20 +37,20 @@ const handleSubmit = () => {
 	)
 }
 
-const filtersCat = [
-	{
-		icon: 'lucide:palmtree',
-		label: 'Destinations',
-	},
-	{
-		icon: 'mingcute:bus-2-line',
-		label: 'tours',
-	},
-	{
-		icon: 'lucide:party-popper',
-		label: 'Detty December',
-	},
-]
+// const filtersCat = [
+// 	{
+// 		icon: 'lucide:palmtree',
+// 		label: 'Experiences',
+// 	},
+// 	{
+// 		icon: 'mingcute:bus-2-line',
+// 		label: 'tours',
+// 	},
+// 	{
+// 		icon: 'lucide:party-popper',
+// 		label: 'Detty December',
+// 	},
+// ]
 </script>
 
 <template lang="pug">
@@ -67,7 +67,7 @@ div
 				.input-group
 					span.input-group-text
 						Icon(name="material-symbols:search")
-					input(v-model='searchQuery' @input="updateSearch" type='text' aria-label='Amount (to the nearest dollar)' placeholder='Destination')
+					input(v-model='searchQuery' @input="updateSearch" type='text' aria-label='Amount (to the nearest dollar)' placeholder='Experiences')
 					span.input-group-text(@click="showModal")
 						Icon(name="flowbite:adjustments-horizontal-solid" size="1.2em")
 			SearchBar(v-if="$device.isDesktop")
@@ -78,7 +78,7 @@ div
 							.input-group
 								span.input-group-text
 									Icon(name="material-symbols:search")
-								input(v-model='searchQuery' @input="updateSearch" type='text' aria-label='Amount (to the nearest dollar)' placeholder='Destination')
+								input(v-model='searchQuery' @input="updateSearch" type='text' aria-label='Amount (to the nearest dollar)' placeholder='Experiences')
 						.col-3
 						.col-3
 
@@ -92,7 +92,7 @@ div
 
 <style lang="scss" scoped>
 #herosearch {
-	padding-top: a.$padding;
+	padding-top: a.$padding-quart;
 	padding-bottom: a.$padding;
 
 	.nested {

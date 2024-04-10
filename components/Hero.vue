@@ -17,8 +17,8 @@ section#hero(:class="$device.isMobile ? 'container' : 'container-fluid px-0'")
 
 <style lang="scss" scoped>
 #hero {
-	padding-top: calc(a.$padding / 2);
-	padding-bottom: a.$padding;
+	padding-top: a.$padding-quart;
+	padding-bottom: a.$padding-half;
 
 	.nested {
 		aspect-ratio: 16/9;
@@ -39,6 +39,7 @@ section#hero(:class="$device.isMobile ? 'container' : 'container-fluid px-0'")
 @media screen and (min-width: a.$breakpoint-mt) {
 	#hero {
 		padding-top: 0;
+		padding-bottom: a.$padding-half;
 
 		.nested {
 			border-radius: 0;

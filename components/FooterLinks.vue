@@ -3,7 +3,7 @@
 	.footer-title Blackband
 	.links
 		ul
-			li #[NuxtLink(to="/destinations") Destinations]
+			li #[NuxtLink(to="/experiences") experiences]
 			li #[NuxtLink(to="/packages") packages]
 .col-md-2
 	.footer-title Membership

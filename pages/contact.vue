@@ -12,7 +12,7 @@ const handleSubmit = async () => {
 	try {
 		if (!input.name || !input.email || !input.subject || !input.message) return
 
-		const { data: resData } = await useFetch('/api/mail/contact', {
+		const res = await $fetch('/api/mail/contact', {
 			method: 'post',
 			body: {
 				from: `${input.name} <${input.email}>`,
@@ -21,7 +21,15 @@ const handleSubmit = async () => {
 			},
 		})
 
-		console.log(resData.value?.message)
+		if(!res) {
+			throw createError({
+				statusCode: 500,
+				statusMessage: 'Error sending mail',
+			})
+			
+			return
+		}
+
 		alert('mail sent!')
 	} catch (e) {
 		console.log(e)

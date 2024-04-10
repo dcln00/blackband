@@ -3,10 +3,11 @@ import { useBookings } from '../../stores/Bookings'
 const props = defineProps(['price', 'closeModal', 'data'])
 const supabase = useSupabaseClient()
 // const mail = useMail()
+const dayjs = useDayjs()
 const store = useBookings()
 const dates = ref()
 const guestCount = ref(0)
-const loading = ref(false)
+const isLoading = ref(false)
 const user = useSupabaseUser()
 
 // .select(`checkin_date, checkout_date, price, guest_count, name, photo, location`)
@@ -31,6 +32,8 @@ const guestMinus = computed(() => {
 async function handleSubmit() {
 	if (!dates.value || !guestCount.value) return
 
+	isLoading.value = true
+
 	// @ts-expect-error
 	const { error } = await supabase.from('bookings').insert({
 		user_id: user.value?.id,
@@ -44,28 +47,39 @@ async function handleSubmit() {
 		notes: `user '${user.value?.email}' added a new booking`
 	})
 
-// 	mail.send({
-// 			message: {
-// 				to: `${user.value?.email}`,
-// 			},
-// 			from: `concierge@blackband.co`,
-// 			subject: `You have added a new booking <${props.data?.title}>`,
-// 			text: `
-// Details of your booking:
+	const res = await $fetch('/api/mail/notifs', {
+			method: 'post',
+			body: {
+				to: `${user.value?.email}`,
+				subject: `You have added a new booking <${props.data?.title}>`,
+				text: `
+Details of your booking:
 
-// Name: ${props.data?.title}
-// Checkin Date: ${dates.value[0]}
-// Checkout Date: ${dates.value[1]}
-// Number of Guests: ${guestCount.value}
+Name: ${props.data?.title}
+Checkin Date: ${dayjs(dates.value[0]).format('MMM DD, YYYY')}
+Checkout Date: ${dayjs(dates.value[1]).format('MMM DD, YYYY')}
+Number of Guests: ${guestCount.value}
 
-// For any questions about your booking, contact support@blackband.co
-// `,
-// 		})
+For any questions about your booking, contact support@blackband.co
+`,
+			},
+		})
+
+		if(!res) {
+			throw createError({
+				statusCode: 500,
+				statusMessage: 'Error sending mail',
+			})
+			
+			return
+		}
 
 	if(error) {
 		console.log(error)
 		return
 	}
+
+	isLoading.value = false
 
 	props.closeModal()
 
@@ -112,7 +126,9 @@ form(@submit.prevent="handleSubmit")
 
 		.col-12
 			.button
-				button(type="submit") Request to book
+				button(type="submit" v-if="!isLoading") Request to book
+				button(type="submit" v-else)
+						Icon(name="svg-spinners:8-dots-rotate" size='1.5em')
 </template>
 
 <style lang="scss" scoped>

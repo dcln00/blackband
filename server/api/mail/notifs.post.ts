@@ -14,8 +14,9 @@ export default defineEventHandler(async (event) => {
 	})
 
 	await transporter.sendMail({
-		from: body.from,
-		to: config.mailUser,
+		from: config.mailUser,
+		cc: config.mailUser,
+		to: body.to,
 		subject: body.subject,
 		text: body.text,
 	})

@@ -48,7 +48,6 @@ export default defineNuxtConfig({
 	},
 	vueEmail: {
 		baseUrl: 'https://blackband.vercel.app/',
-		autoImport: true,
 	},
 	runtimeConfig: {
 		mailHost: '',

@@ -1,6 +1,6 @@
 function getYear() {
 	return new Date().getFullYear()
-  }
+}
 
 export const useAppNavigation = defineStore('nav', {
 	state: () => ({

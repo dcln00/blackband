@@ -1,10 +1,11 @@
 <script setup lang="ts">
 const supabase = useSupabaseClient()
+const user = useSupabaseUser()
 const props = defineProps(['showModal'])
 defineEmits(['show-modal'])
 
 const input = reactive({
-	name: '',
+	name: user.value?.user_metadata?.username,
 })
 
 async function handleChangeDisplay() {

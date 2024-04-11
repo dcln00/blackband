@@ -1,5 +1,5 @@
 export default defineNuxtConfig({
-	devtools: { enabled: false },
+	devtools: { enabled: true },
 	app: {
 		head: {
 			title: 'Blackband',
@@ -41,11 +41,15 @@ export default defineNuxtConfig({
 		'@pinia/nuxt',
 		'nuxt-swiper',
 		'@vueuse/nuxt',
+		'@vue-email/nuxt',
 	],
 	supabase: {
 		redirect: false,
 	},
-	
+	vueEmail: {
+		baseUrl: 'https://blackband.vercel.app/',
+		autoImport: true,
+	},
 	runtimeConfig: {
 		mailHost: '',
 		mailUser: '',

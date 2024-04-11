@@ -9,7 +9,7 @@ const logout = async () => {
 			statusMessage: 'Something went wrong'
 		})
 	}
-	return navigateTo('/', {
+	return await navigateTo('/', {
 		external: true
 	})
 }
@@ -25,7 +25,7 @@ const settings = [
 const solutions = [
 	{
 		title: 'BlackBand Business Experience',
-		url: '/services/business-travel?articles=business',
+		url: '/services/business-experience?articles=business',
 		external: true
 	},
 	{

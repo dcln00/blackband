@@ -50,18 +50,12 @@ async function handleSubmit() {
 	const res = await $fetch('/api/mail/notifs', {
 			method: 'post',
 			body: {
-				to: `${user.value?.email}`,
+				to: user.value?.email,
 				subject: `You have added a new booking <${props.data?.title}>`,
-				text: `
-Details of your booking:
-
-Name: ${props.data?.title}
-Checkin Date: ${dayjs(dates.value[0]).format('MMM DD, YYYY')}
-Checkout Date: ${dayjs(dates.value[1]).format('MMM DD, YYYY')}
-Number of Guests: ${guestCount.value}
-
-For any questions about your booking, contact support@blackband.co
-`,
+				name: props.data?.title,
+				checkin: dayjs(dates.value[0]).format('MMM DD, YYYY'),
+				checkout: dayjs(dates.value[1]).format('MMM DD, YYYY'),
+				guests: guestCount.value
 			},
 		})
 
@@ -126,9 +120,9 @@ form(@submit.prevent="handleSubmit")
 
 		.col-12
 			.button
-				button(type="submit" v-if="!isLoading") Request to book
-				button(type="submit" v-else)
-						Icon(name="svg-spinners:8-dots-rotate" size='1.5em')
+				button(type="submit")
+					div(v-if="!isLoading") Request to book
+					Icon(name="svg-spinners:8-dots-rotate" size='1.5em' v-else)
 </template>
 
 <style lang="scss" scoped>

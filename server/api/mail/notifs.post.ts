@@ -1,8 +1,18 @@
 import nodemailer from 'nodemailer'
+import { useCompiler } from '#vue-email'
 
 export default defineEventHandler(async (event) => {
 	const body = await readBody(event)
 	const config = useRuntimeConfig(event)
+
+	const template = await useCompiler('blackband-booking.vue', {
+		props: {
+		  name: body.name,
+		  checkin: body.checkin,
+		  checkout: body.checkout,
+		  guests: body.guests
+		}
+	  })
 
 	const transporter = nodemailer.createTransport({
 		host: config.mailHost,
@@ -14,11 +24,11 @@ export default defineEventHandler(async (event) => {
 	})
 
 	await transporter.sendMail({
-		from: config.mailUser,
-		cc: config.mailUser,
+		from: `BlackBand <${config.mailUser}>`,
+		bcc: config.mailUser,
 		to: body.to,
 		subject: body.subject,
-		text: body.text,
+		html: template.html,
 	})
 
 	return { message: 'Email sent' }

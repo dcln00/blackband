@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { LazyColumnGroup } from '#build/components'
+import { defineProps } from 'vue'
 
 defineProps({
 	name: String,
 	checkin: String,
 	checkout: String,
-	guests: String,
+	guests: Number,
 })
 
 function getYear() {

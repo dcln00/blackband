@@ -5,7 +5,7 @@ export default defineEventHandler(async (event) => {
 	const body = await readBody(event)
 	const config = useRuntimeConfig(event)
 
-	const template = await useCompiler('blackband-booking.vue', {
+	const template = await useCompiler('BlackbandBooking.vue', {
 		props: {
 		  name: body.name,
 		  checkin: body.checkin,

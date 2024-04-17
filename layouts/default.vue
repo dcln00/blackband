@@ -23,7 +23,7 @@ div.body-outlet
 	main
 		slot
 	Footer(v-if="$device.isMobile && !$route.path.includes('login') && !$route.path.includes('signup') && $route.matched[0].name !== 'experiences-slug'")
-	AppFooter(v-else-if="!$route.path.includes('login') && !$route.path.includes('signup') && !$route.matched[0].name === 'experiences-slug' && $device.isDesktop")
+	AppFooter(v-else-if="!$route.path.includes('login') && !$route.path.includes('signup') && !$route.matched[0].name !== 'experiences-slug' && $device.isDesktop")
 </template>
 
 <style lang="scss">

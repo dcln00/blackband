@@ -46,7 +46,7 @@ const handleSubmit = async () => {
 section#contact.container
 	.row 
 		.col-sm-4
-			UiHeading(title="Contact us" show-description :description="`Thank you for your interest in BlackBand. <br/><br/> We are continuously striving to improve the BlackBand experience, and feedback is always appreciated. Please let us know if you had any problems, or have any thoughts or suggestions you'd like to share with the team. Thanks.`" align="center")
+			UiHeading(title="Contact us" show-description :description="`Thank you for your interest in BlackBand. <br><br> We are continuously striving to improve the BlackBand experience, and feedback is always appreciated. Please let us know if you had any problems, or have any thoughts or suggestions you'd like to share with the team. Thanks.`" align="center")
 		.col-sm-8
 			.contact-form.container 
 				form(@submit.prevent="handleSubmit")

@@ -10,8 +10,18 @@ const user = reactive({
 	email: '',
 })
 
+const errorMessage = ref('')
+
 const signup = async () => {
 	try {
+
+		if (!user.password || !user.email) return
+
+		if (!user.fullname ) {
+			errorMessage.value = 'You have not entered your name'
+			return
+		}
+
 		const { data, error } = await supabase.auth.signUp({
 			email: user.email,
 			password: user.password,
@@ -23,24 +33,23 @@ const signup = async () => {
 		})
 
 		if (data.user && data.user.identities && data.user.identities.length === 0) {
-			return alert("User already Exists")
+			errorMessage.value = 'User already Exists'
+			return
 		}
 
 		if (error) {
-			return alert(error)
+			errorMessage.value = error.message
+			return
 		}
 
+		errorMessage.value = ''
 		alert('Confirm your email address')
-		navigateTo('/login')
+		return await navigateTo('/login')
 	} catch (err) {
 		if(err instanceof Error) throw createError({
 			statusCode: 401,
 			statusMessage: err.message,
 		})
-	} finally {
-		user.email = ''
-		user.password = ''
-		user.fullname = ''
 	}
 }
 
@@ -66,6 +75,8 @@ section#signup.container-fluid.px-0
 		.container
 			UiHeading(title="Create an account" align="center" show-description description="Allow us to help tailor your journey and discover a world of culture.")
 			AuthForm(:auth="signup", :user="user")
+				template(#error)
+						ErrorBound(:message="errorMessage" v-if="errorMessage")
 	.row(v-else)
 		.col-sm-8
 			.logo

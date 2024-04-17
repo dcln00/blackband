@@ -42,12 +42,59 @@ export default defineNuxtConfig({
 		'nuxt-swiper',
 		'@vueuse/nuxt',
 		'@vue-email/nuxt',
+		'@vee-validate/nuxt',
+		'nuxt-og-image',
+		'@vite-pwa/nuxt',
 	],
+	ogImage: {
+		fonts: ['Jost:400', 'Jost:700'],
+	},
 	supabase: {
 		redirect: false,
 	},
 	vueEmail: {
 		baseUrl: 'https://blackband.vercel.app/',
+	},
+	veeValidate: {
+		autoImports: true,
+		componentNames: {
+			Form: 'VeeForm',
+			Field: 'VeeField',
+			FieldArray: 'VeeFieldArray',
+			ErrorMessage: 'VeeErrorMessage',
+		},
+	},
+	site: {
+		url: 'https://blackband.vercel.app/',
+	},
+	pwa: {
+		manifest: {
+			name: 'BlackBand',
+			short_name: 'BlackBand',
+			description: 'Explore Africa With Greater Confidence',
+			theme_color: '#000000',
+			lang: 'en',
+			background_color: '#000000',
+			icons: [
+				{
+					src: 'logo.png',
+					sizes: '150x150',
+					type: 'image/png',
+				},
+				{
+					src: 'logo.png',
+					sizes: '512x512',
+					type: 'image/png',
+				},
+			],
+		},
+		workbox: {
+			navigateFallback: '/',
+		},
+		devOptions: {
+			enabled: true,
+			type: 'module',
+		},
 	},
 	runtimeConfig: {
 		mailHost: '',

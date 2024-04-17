@@ -12,8 +12,9 @@ defineProps(['message'])
 .error-bound {
 	column-gap: 20px;
 	border: 1px solid red;
-	padding: 1rem;
+	padding: .5rem;
 	border-radius: 5px;
+	margin-bottom: 1rem;
 
 	.message {
 		color: red;

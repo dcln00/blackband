@@ -38,6 +38,8 @@ form(@submit.prevent="auth")
 			aria-describedby="input-group-left"
 			:disabled="disabled"
 			)
+	.error-message 
+		slot(name="error")
 	.button
 		button(type="submit") {{$route.path.includes('login') ?'login' : $route.path.includes('signup') ? 'signup' : ''}}
 </template>
@@ -70,6 +72,7 @@ form(@submit.prevent="auth")
 
 .button {
 	padding-top: 1rem;
+	padding-bottom: 2rem;
 	button {
 		@include a.button;
 		border: 1px solid black;

@@ -3,6 +3,21 @@ const supabase = useSupabaseClient()
 const email = ref('')
 const subscribed = useLocalStorage('subscribed', false)
 
+const validate = {
+	email(value: string) {
+		if (!value) {
+			return 'This field is required'
+		}
+
+		const regex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i
+		if (!regex.test(value)) {
+			return 'This field must be a valid email'
+		}
+
+		return true
+	},
+}
+
 const handleSubscribe = async () => {
 	if (!email.value) return
 
@@ -26,9 +41,11 @@ section#newsletter(:class="$device.isMobile ? 'container' : 'container-fluid px-
 		div.box
 			PhotoWrapper(photo="/newsletter.jpg")
 			UiHeading(:title="!subscribed ? 'Blackband Stories' : 'Thanks for subscribing!'" description="Be the first to hear , First To See , First To Experience" :show-description="!subscribed" align="center")
-			form(@submit.prevent="handleSubscribe" v-if="!subscribed")
+			VeeForm(@submit="handleSubscribe" v-if="!subscribed" :validation-schema="validate" v-slot="{ errors }")
 				div
-					input(type="email" v-model="email" name="email" required placeholder="Email")
+					VeeField(type="email" v-model="email" name="email" required placeholder="Email")
+					//- div {{ errors.email }}
+					ErrorBound(:message="errors.email" v-if="errors.email")
 				div
 					button(type="submit") subscribe
 </template>

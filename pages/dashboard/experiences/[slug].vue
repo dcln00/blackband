@@ -100,8 +100,9 @@ div
 	section#book-bar.container-fluid.px-0
 		.nested.container.d-flex
 			.box
+				.person(v-if="data?.acfExperiences?.fromperNight") Priced From
 				.price {{ `$${data?.acfExperiences?.price}` }}
-				.person Per Person
+				.person(v-if="!data?.acfExperiences?.fromperNight") Per Night
 			button.ms-auto(@click="showModal") Book
 </template>
 

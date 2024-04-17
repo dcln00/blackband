@@ -9,6 +9,7 @@ const dates = ref()
 const guestCount = ref(0)
 const isLoading = ref(false)
 const user = useSupabaseUser()
+const errorMessage= ref('')
 
 // .select(`checkin_date, checkout_date, price, guest_count, name, photo, location`)
 // .eq('id', user.value.id)
@@ -34,19 +35,6 @@ async function handleSubmit() {
 
 	isLoading.value = true
 
-	// @ts-expect-error
-	const { error } = await supabase.from('bookings').insert({
-		user_id: user.value?.id,
-		price: props.price,
-		name: props.data?.title,
-		photo: props.data?.featuredImage?.node?.sourceUrl,
-		location: props.data?.acfExperiences?.location || 'Accra, Ghana',
-		checkin_date: dates.value[0],
-		checkout_date: dates.value[1],
-		guest_count: guestCount.value,
-		notes: `user '${user.value?.email}' added a new booking`
-	})
-
 	const res = await $fetch('/api/mail/notifs', {
 			method: 'post',
 			body: {
@@ -64,9 +52,24 @@ async function handleSubmit() {
 				statusCode: 500,
 				statusMessage: 'Error sending mail',
 			})
+
+			errorMessage.value = 'Error Booking. Please Try Again'
 			
 			return
 		}
+
+		// @ts-expect-error
+	const { error } = await supabase.from('bookings').insert({
+		user_id: user.value?.id,
+		price: props.price,
+		name: props.data?.title,
+		photo: props.data?.featuredImage?.node?.sourceUrl,
+		location: props.data?.acfExperiences?.location || 'Accra, Ghana',
+		checkin_date: dates.value[0],
+		checkout_date: dates.value[1],
+		guest_count: guestCount.value,
+		notes: `user '${user.value?.email}' added a new booking`
+	})
 
 	if(error) {
 		console.log(error)
@@ -74,6 +77,8 @@ async function handleSubmit() {
 	}
 
 	isLoading.value = false
+
+	errorMessage.value = ''
 
 	props.closeModal()
 
@@ -123,6 +128,9 @@ form(@submit.prevent="handleSubmit")
 				button(type="submit")
 					div(v-if="!isLoading") Request to book
 					Icon(name="svg-spinners:8-dots-rotate" size='1.5em' v-else)
+
+		.col-12
+			ErrorBound(:message="errorMessage" v-if="errorMessage")
 </template>
 
 <style lang="scss" scoped>

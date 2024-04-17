@@ -11,8 +11,8 @@ export const useAppNavigation = defineStore('nav', {
 					url: '/blackband-club',
 				},
 				{
-					title: 'Blackband Card',
-					url: '/the-blackband-card',
+					title: 'Blackband Books',
+					url: '/blackband-books',
 				},
 				{
 					title: 'Blackband Vendors',

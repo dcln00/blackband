@@ -67,7 +67,7 @@ div
 				.input-group
 					span.input-group-text
 						Icon(name="material-symbols:search")
-					input(v-model='searchQuery' @input="updateSearch" type='text' aria-label='Amount (to the nearest dollar)' placeholder='Experiences')
+					input(v-model='searchQuery' @input="updateSearch" type='text' aria-label='Amount (to the nearest dollar)' placeholder='Book Experiences')
 					span.input-group-text(@click="showModal")
 						Icon(name="flowbite:adjustments-horizontal-solid" size="1.2em")
 			SearchBar(v-if="$device.isDesktop")

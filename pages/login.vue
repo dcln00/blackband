@@ -12,6 +12,7 @@ const user = reactive({
 })
 
 const disabled = ref(false)
+const errorMessage = ref('')
 
 const login = async () => {
 	try {
@@ -22,17 +23,19 @@ const login = async () => {
 			password: user.password,
 		})
 		if (error) {
-			alert(error)
+			errorMessage.value = error.message
 			return
 		}
 
 		if (route.redirectTo) {
+			errorMessage.value = ''
 			await navigateTo(`confirm?redirectTo=${route.redirectTo}`)
 		} else {
+			errorMessage.value = ''
 			await navigateTo('confirm')
 		}
 
-		return error
+		return
 	} catch (err) {
 		if (err instanceof Error)
 			throw createError({
@@ -68,7 +71,8 @@ section#login.container-fluid.px-0
 		.container
 			UiHeading(title="Login" align="center" show-description description="Already registered? Log in here.")
 			AuthForm(:auth="login" :user="user" :disabled="disabled")
-			ErrorBound(v-if='error' message="Wrong Username or Password")
+				template(#error)
+					ErrorBound(:message="errorMessage" v-if="errorMessage")
 	.row(v-else)
 		.col-sm-8
 			.logo
@@ -79,7 +83,8 @@ section#login.container-fluid.px-0
 			.container
 				UiHeading(title="Login" align="center" show-description description="Already registered? Log in here.")
 				AuthForm(:auth="login" :user="user" :disabled="disabled")
-				ErrorBound(v-if='error' message="Wrong Username or Password")
+					template(#error)
+						ErrorBound(:message="errorMessage" v-if="errorMessage")
 				.text Don't have an account? #[NuxtLink(to="/signup") Sign up here]
 </template>
 

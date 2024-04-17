@@ -171,16 +171,18 @@ div
 					section#exp-price
 						.nested
 							.box.d-flex
+								.person.me-auto(v-if="data?.acfExperiences?.fromperNight") Priced From
 								.price {{ `$${data?.acfExperiences?.price}` }}
-								.person.ms-auto Per Person
+								.person.ms-auto(v-if="!data?.acfExperiences?.fromperNight") Per Night
 							button(@click="showModal") Book
 							button.back(@click="$router.go(-1)") Go back
 		
 		section#book-bar.container-fluid.px-0(v-if="$device.isMobile")
 			.nested.container.d-flex
 				.box
+					.person(v-if="data?.acfExperiences?.fromperNight") Priced From
 					.price {{ `$${data?.acfExperiences?.price}` }}
-					.person Per Person
+					.person(v-if="!data?.acfExperiences?.fromperNight") Per Night
 				button.ms-auto(@click="showModal") Book
 </template>
 

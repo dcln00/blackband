@@ -13,6 +13,7 @@ export default defineEventHandler(async (event) => {
 						cancellation
 						location
 						price
+						fromperNight
 						gallery {
 							nodes {
 							 sourceUrl

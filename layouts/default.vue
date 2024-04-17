@@ -2,6 +2,8 @@
 const route = useRoute()
 const isOpen = ref(false)
 
+console.log(route.matched)
+
 function toggleOpen() {
 	isOpen.value = !isOpen.value
 }
@@ -20,7 +22,7 @@ div.body-outlet
 	.spacing(:style="{paddingTop: '129.783px'}" v-if="$device.isDesktop && !pages")
 	main
 		slot
-	Footer(v-if="$device.isMobile && !$route.path.includes('login') && !$route.path.includes('signup') && !$route.matched[0].name === 'experiences-slug'")
+	Footer(v-if="$device.isMobile && !$route.path.includes('login') && !$route.path.includes('signup') && $route.matched[0].name !== 'experiences-slug'")
 	AppFooter(v-else-if="!$route.path.includes('login') && !$route.path.includes('signup') && !$route.matched[0].name === 'experiences-slug' && $device.isDesktop")
 </template>
 

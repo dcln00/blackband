@@ -4,7 +4,6 @@ const nuxtApp = useNuxtApp()
 
 const postUrl = computed(() => `/api/posts/${params.slug}`)
 const pageUrl = computed(() => `/api/page/${params.slug}`)
-const expUrl = computed(() => `/api/experiences/${params.slug}`)
 
 const { data: posts, pending: postPending, error } = await useLazyFetch(postUrl.value, {
 	key: `featured-${params.slug}`,
@@ -36,22 +35,6 @@ const { data: page, pending: pagePending } = await useLazyFetch(pageUrl.value, {
 	},
 })
 
-const { data: experience, pending: expPending } = await useLazyFetch(expUrl.value, {
-	key: `experience-${params.slug}`,
-	getCachedData: (key) => {
-		if (!nuxtApp.isHydrating && nuxtApp.payload.data[key]) {
-			return nuxtApp.payload.data[key]
-		}
-
-		if (nuxtApp.static.data[key]) {
-			return nuxtApp.static.data[key]
-		}
-
-		return null
-	},
-	// default: () => defaultDest.value
-})
-
 useHead({
 	titleTemplate: (title) => {
 		const pageTitle = params.slug.replace(/-/g, ' ')
@@ -68,7 +51,6 @@ definePageMeta({
 		const parentSlug = [
 			'featured',
 			'blackband',
-			'experiences',
 			'services',
 			'packages',
 			'articles',
@@ -94,7 +76,6 @@ section#pages.container-fluid.px-0
 		Loading
 	Content(:data="page" v-if="page")
 	Content(:data="posts" v-else-if="posts")
-	Content(:data="experience" v-else-if="experience")
 </template>
 
 <style lang="scss" scoped>

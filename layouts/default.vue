@@ -7,7 +7,7 @@ function toggleOpen() {
 }
 
 const pages = computed(() =>
-	route.path === '/' || route.path === '/login' || route.path === '/signup' || route.params.parentSlug === 'featured' || route.params.parentSlug === 'experiences' ? true : false
+	route.path === '/' || route.path === '/login' || route.path === '/signup' || route.params.parentSlug === 'featured' || route.matched[0].name === 'experiences-slug' ? true : false
 )
 </script>
 

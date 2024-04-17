@@ -3,23 +3,9 @@ import FsLightbox from 'fslightbox-vue/v3'
 const user = useSupabaseUser()
 const props = defineProps(['data'])
 const isOpen = ref(false)
-const toggler = ref(false)
-const slide = ref(1)
 const route = useRoute()
 const showModal = () => {
 	isOpen.value = !isOpen.value
-}
-
-function openCustom(number: number) {
-	slide.value = number
-	toggler.value = !toggler.value
-}
-
-function images() {
-	const images = props.data.value?.acfExperiences?.gallery?.nodes.map(
-		(x) => x.sourceUrl
-	)
-	return images
 }
 
 // VALIDATE COMPONENTS
@@ -36,7 +22,7 @@ const parentPages = computed(() =>
 )
 
 const blackbandTrio = computed(() =>
-	route.path === '/blackband-club' || route.path === '/the-blackband-card'
+	route.path === '/blackband-club' || route.path === '/blackband-books'
 		? true
 		: false
 )
@@ -106,84 +92,6 @@ div
 				RelatedArticles
 
 			Vendors(v-if="$route.params.slug === 'blackband-vendors' && data?.vendorsSettings?.showVendors")
-
-	//- EXPERIENCE PAGE
-	div(v-else)
-		Teleport(to="body")
-			DashModal(:is-open="isOpen" :close-modal="showModal")
-				div(v-if='!user')
-					.modal-message Login To book
-					NuxtLink(:href="`/login?redirectTo=/dashboard/experiences/${data?.slug}`")
-						button.book-button login
-				DashBookingForm(:price="data?.acfExperiences?.price" :close-modal="showModal" :data="data" v-else)
-		section#experience-hero.container-fluid.px-0
-			.photo
-				.back(@click="$router.go(-1)" v-if="$device.isMobile")
-					Icon(name="ph:caret-circle-left-fill" color="white" size="2em")
-				DashDestWrapper(:photo="data?.featuredImage?.node?.sourceUrl")
-		section#exp-heading.container 
-			.author {{ data?.author?.node?.name }}
-			.title {{ data?.title }}
-			.box.d-flex.justify-content-center.align-items-center
-				.category {{ data?.experienceCategories?.nodes[0].name }} 
-				.bullet •
-				.location {{ data?.acfExperiences?.location || 'Accra, Ghana' }}
-
-		.container
-			.row
-				.col-sm-8
-					section#exp-content(v-if="data?.content")
-						.title Summary
-						.description(v-html="data?.content")
-					
-					section#exp-content(v-if="data?.acfExperiences?.availability.from")
-						.title Availability
-						.description(v-html="$dayjs(data?.acfExperiences?.availability?.from).format('MMMM DD, YYYY') + ' - ' + $dayjs(data?.acfExperiences?.availability?.to).format('MMMM DD, YYYY')")
-
-					section#exp-content(v-if="data?.acfExperiences?.cancellation")
-						.title Cancellation
-						.description(v-html="data?.acfExperiences?.cancellation")
-
-					section#exp-content(v-if="data?.acfExperiences?.additionalInfo")
-						.title Additional Info
-						.description(v-html="data?.acfExperiences?.additionalInfo")
-
-					ClientOnly
-						FsLightbox(
-							:sources="data?.acfExperiences?.gallery?.nodes.map(x => x.sourceUrl)"
-							:toggler="toggler"
-							type="image"
-							:slide="slide"
-						)
-
-					section#exp-content(v-if="data?.acfExperiences?.gallery?.nodes.length")
-						.title Gallery
-						.row 
-							.col-3.g-3(v-for="(item, ind) in data?.acfExperiences?.gallery?.nodes" :key="ind")
-								.image(@click="openCustom(ind + 1)")
-									.view
-										Icon(name="ph:eye" size="2rem" color="white")
-									NuxtImg(:src="item.sourceUrl")
-
-					.spacer
-
-				.col-sm-4(v-if="$device.isDesktop")
-					section#exp-price
-						.nested
-							.box.d-flex
-								.person.me-auto(v-if="data?.acfExperiences?.fromperNight") Priced From
-								.price {{ `$${data?.acfExperiences?.price}` }}
-								.person.ms-auto(v-if="!data?.acfExperiences?.fromperNight") Per Night
-							button(@click="showModal") Book
-							button.back(@click="$router.go(-1)") Go back
-		
-		section#book-bar.container-fluid.px-0(v-if="$device.isMobile")
-			.nested.container.d-flex
-				.box
-					.person(v-if="data?.acfExperiences?.fromperNight") Priced From
-					.price {{ `$${data?.acfExperiences?.price}` }}
-					.person(v-if="!data?.acfExperiences?.fromperNight") Per Night
-				button.ms-auto(@click="showModal") Book
 </template>
 
 <style lang="scss">

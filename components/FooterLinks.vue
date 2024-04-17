@@ -10,7 +10,7 @@
 	.links
 		ul
 			li #[NuxtLink(to="/blackband-club") The Blackband Club]
-			li #[NuxtLink(to="/the-blackband-card") Blackband Card]
+			li #[NuxtLink(to="/blackband-books") Blackband Books]
 			li #[NuxtLink(to="/blackband-vendors") Blackband Vendors]
 .col-md-2
 	.footer-title Support

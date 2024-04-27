@@ -14,7 +14,7 @@ export default defineEventHandler(async (event) => {
 							sourceUrl
 					}
 				  }
-				  ${page === 'blackband-vendors' ? 'vendorsSettings { showVendors }' : ''}
+				  ${page === 'vendors' ? 'vendorsSettings { showVendors }' : ''}
 				  ${
 						page === 'business-experience'
 							? 'travelSettings { travelExperiences { tabs { title writeUp button{ title } } } }'

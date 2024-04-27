@@ -44,6 +44,12 @@ section#content-body.container
 		}
 	}
 
+	img {
+		width: 100%;
+		height: 100%;
+		object-fit: contain;
+	}
+
 	h1,
 	h2,
 	h3,

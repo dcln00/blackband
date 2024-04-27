@@ -51,7 +51,7 @@ div
 			Cta(button="Become a Member" photo="https://images.unsplash.com/photo-1620511450270-47162b983078?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")
 
 		div(v-if="$route.path === '/blackbook'")
-			Cta(button="Get a blackband Card" photo="bbandcard.png")
+			Cta(button="Find a blackbook near you" photo="bbook.jpg")
 
 
 	//- PAGES WITHOUT HERO

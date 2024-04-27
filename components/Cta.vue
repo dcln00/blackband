@@ -27,6 +27,8 @@ section#member-cta.container-fluid.px-0
 				button {
 					background-color: a.color(white);
 					color: a.color(black);
+					box-shadow: none;
+					border: none;
 				}
 			}
 	}

@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import FsLightbox from 'fslightbox-vue/v3'
 const user = useSupabaseUser()
 const props = defineProps(['data'])
 const isOpen = ref(false)
@@ -22,7 +21,7 @@ const parentPages = computed(() =>
 )
 
 const blackbandTrio = computed(() =>
-	route.path === '/blackband-club' || route.path === '/blackband-books'
+	route.path === '/case-studies' || route.path === '/blackbook'
 		? true
 		: false
 )
@@ -48,10 +47,10 @@ div
 		ContentBody(v-if="data" :title="data?.title" :title-style="{paddingTop: '2rem'}")
 			div(v-html="data?.content")
 
-		div(v-if="$route.path === '/blackband-club'")
+		div(v-if="$route.path === '/case-studies'")
 			Cta(button="Become a Member" photo="https://images.unsplash.com/photo-1620511450270-47162b983078?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")
 
-		div(v-if="$route.path === '/the-blackband-card'")
+		div(v-if="$route.path === '/blackbook'")
 			Cta(button="Get a blackband Card" photo="bbandcard.png")
 
 
@@ -91,7 +90,7 @@ div
 				TravelTabs(:data="data?.leisureSettings?.leisureExperiences?.tabs" @show-modal="showModal")
 				RelatedArticles
 
-			Vendors(v-if="$route.params.slug === 'blackband-vendors' && data?.vendorsSettings?.showVendors")
+			Vendors(v-if="$route.params.slug === 'vendors' && data?.vendorsSettings?.showVendors")
 </template>
 
 <style lang="scss">

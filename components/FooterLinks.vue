@@ -9,9 +9,9 @@
 	.footer-title Membership
 	.links
 		ul
-			li #[NuxtLink(to="/blackband-club") The Blackband Club]
-			li #[NuxtLink(to="/blackband-books") Blackband Books]
-			li #[NuxtLink(to="/blackband-vendors") Blackband Vendors]
+			li #[NuxtLink(to="/case-studies") Case Studies]
+			li #[NuxtLink(to="/blackbook") The BlackBook]
+			li #[NuxtLink(to="/vendors") Vendors]
 .col-md-2
 	.footer-title Support
 	.links

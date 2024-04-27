@@ -7,16 +7,16 @@ export const useAppNavigation = defineStore('nav', {
 		navigation: {
 			cards: [
 				{
-					title: 'The Blackband Club',
-					url: '/blackband-club',
+					title: 'Case Studies',
+					url: '/case-studies',
 				},
 				{
-					title: 'Blackband Books',
-					url: '/blackband-books',
+					title: 'The Blackbook',
+					url: '/blackbook',
 				},
 				{
-					title: 'Blackband Vendors',
-					url: '/blackband-vendors',
+					title: 'Vendors',
+					url: '/vendors',
 				},
 			],
 			secondary: [

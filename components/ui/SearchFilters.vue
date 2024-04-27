@@ -10,16 +10,13 @@ form
 		.col-12
 			select.form-select(aria-label='Default select' :style="{marginTop: '0'}" v-model="filters.trip")
 				option(selected disabled value='') Type
-				option Blackband Apartments
-				option Blackband Cars
-				option Business
-				option Private
-				option Group
-				option Individual
-				option Education
-				option Entertainment
-				option Relaxation
+				option Accomodation
+				option Transportation
+				option Private Chef
+				option Custom Clothing
+				option Leisure
 				option Wellness
+				option Airfare
 		.col-12
 			select.form-select(aria-label='Default select' v-model="filters.location")
 				option(selected='' disabled value='') Location

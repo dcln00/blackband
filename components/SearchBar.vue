@@ -66,16 +66,13 @@ const handleSubmit = async () => {
 				.col-sm-2
 					select.form-select(aria-label='Default select' v-model="filters.trip" @change="updateSearch")
 						option(selected disabled value='') Type
-						option Blackband Apartments
-						option Blackband Cars
-						option Business
-						option Private
-						option Group
-						option Individual
-						option Education
-						option Entertainment
-						option Relaxation
+						option Accomodation
+						option Transportation
+						option Private Chef
+						option Custom Clothing
+						option Leisure
 						option Wellness
+						option Airfare
 				.col-sm-2
 					select.form-select(aria-label='Default select' v-model="filters.location" @change="updateSearch")
 						option(selected='' disabled value='') Location

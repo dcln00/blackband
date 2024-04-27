@@ -61,7 +61,7 @@ div
 
 	section#herosearch(:class="$device.isMobile ? 'container' : 'container-fluid px-0'")
 		.nested(:class="$device.isDesktop ? 'd-flex align-items-center justify-content-center flex-column' : ''")
-			PhotoWrapper(photo="/search.jpg" :media="false")
+			PhotoWrapper(photo="/search.jpg")
 			UiHeading(title="This is blackband" show-description description="Embark on an extraordinary journey with Black Band, where we redefine travel in Africa with unwavering confidence." align="center")
 			form(@submit.prevent="handleSubmit" v-if="$device.isMobile")
 				.input-group
@@ -81,8 +81,6 @@ div
 								input(v-model='searchQuery' @input="updateSearch" type='text' aria-label='Amount (to the nearest dollar)' placeholder='Experiences')
 						.col-3
 						.col-3
-
-
 
 				//- .filters.d-flex.justify-content-around.align-items-center
 					.box.d-flex.flex-column.align-items-center(v-for="item in filtersCat" key="item.label")
